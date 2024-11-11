@@ -1,0 +1,147 @@
+﻿﻿@model DigitalHub.Models.Cart
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<div class="container my-5">
+    <h2 class="mb-4">Giỏ hàng của bạn</h2>
+
+    @if (Model.Items.Any())
+    {
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Danh sách sản phẩm -->
+                <div class="card">
+                    <div class="card-body">
+                        @foreach (var item in Model.Items)
+                        {
+                            <div class="row mb-4 border-bottom pb-4">
+                                <div class="col-md-3">
+                                    <img src="~/Images/@item.Category/@item.Image" class="img-fluid rounded" alt="@item.ProductName">
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h5 class="card-title">@item.ProductName</h5>
+                                        <button class="btn btn-link text-danger" onclick="removeItemFromCart(@item.ProductId)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                    <p class="card-text text-primary fw-bold">@item.Price.ToString("N0") ₫</p>
+                                    <div class="d-flex align-items-center">
+                                        <div class="input-group" style="width: 130px;">
+                                            <button class="btn btn-outline-secondary" onclick="adjustQuantity(@item.ProductId, -1)">-</button>
+                                            <input id="quantity_@item.ProductId" type="number" class="form-control text-center"
+                                                   value="@item.Quantity" min="1" onchange="updateQuantity(@item.ProductId, this.value)" id="inputQuantity">
+                                            <button class="btn btn-outline-secondary" onclick="adjustQuantity(@item.ProductId, 1)">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <!-- Tổng tiền và thanh toán -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Tổng đơn hàng</h5>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Tạm tính</span>
+                            <span id="subtotalAmount" class="fw-bold">@Model.Total.ToString("N0") ₫</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Phí vận chuyển</span>
+                            <span class="fw-bold">0 ₫</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-4">
+                            <span class="fw-bold">Tổng cộng</span>
+                            <span id="totalAmount" class="fw-bold text-primary">@Model.Total.ToString("N0") ₫</span>
+                        </div>
+                        <button class="btn btn-primary w-100 mb-2">Tiến hành thanh toán</button>
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary w-100">
+                            Tiếp tục mua sắm
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <i class="fas fa-shopping-cart fa-4x text-muted mb-3"></i>
+            <h4>Giỏ hàng trống</h4>
+            <p class="text-muted">Hãy thêm sản phẩm vào giỏ hàng của bạn</p>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary">
+                Tiếp tục mua sắm
+            </a>
+        </div>
+    }
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function removeItemFromCart(productId) {
+        if (confirm('Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?')) {
+            $.ajax({
+                url: '/Cart/RemoveFromCart',
+                type: 'POST',
+                data: { productId },
+                success: function (response) {
+                    console.log(response);
+                    if (response.success) {
+                        location.reload();
+                    }
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi xóa sản phẩm');
+                }
+            });
+        }
+    }
+
+    function adjustQuantity(productId, change) {
+        let input = $(`#quantity_${productId}`);
+        let currentQuantity = parseInt(input.val());
+
+        // Calculate the new quantity, ensuring it stays above 0
+        let newQuantity = currentQuantity + change;
+        if (newQuantity < 1) {
+            alert('Số lượng phải lớn hơn 0');
+            return;
+        }
+
+        // Update the input field's value and trigger the quantity update
+        input.val(newQuantity);
+        updateQuantity(productId, newQuantity);
+    }
+
+    function updateQuantity(productId, quantity) {
+        $.ajax({
+            url: '/Cart/UpdateQuantity',
+            type: 'POST',
+            data: {
+                productId: productId,
+                quantity: quantity
+            },
+            success: function (response) {
+                if (response.success) {
+                    // Update the subtotal and total amount displayed without a page reload
+                    $('#subtotalAmount').text(response.subtotalAmount.toLocaleString("en-US") + " ₫");
+                    $('#totalAmount').text(response.totalAmount.toLocaleString("en-US") + " ₫");
+                } else {
+                    alert('Cập nhật số lượng thất bại');
+                }
+            },
+            error: function () {
+                alert('Có lỗi xảy ra khi cập nhật số lượng');
+            }
+        });
+    }
+
+
+</script>

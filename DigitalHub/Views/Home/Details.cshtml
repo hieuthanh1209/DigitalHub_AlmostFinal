@@ -1,4 +1,4 @@
-﻿@model DigitalHub.Models.Product
+﻿﻿@model DigitalHub.Models.Product
 
 @{
     ViewBag.Title = "Details";
@@ -8,38 +8,43 @@
 <div class="container px-4 px-lg-5 my-3">
     <div class="row align-items-top">
         <div class="col-md-6 mt-2">
-          <img class="card-img-top mb-5 mb-md-0 custom-rounded" src="~/Images/@Model.Category1.NameCate/@Model.ImagePro"/>
+            <img class="card-img-top mb-5 mb-md-0 custom-rounded" src="~/Images/@Model.Category1.NameCate/@Model.ImagePro" />
         </div>
         <div class="col-md-6">
             <h1 class="fw-bolder">@Html.DisplayFor(model => model.NamePro)</h1>
             <h5 class="rating">
-              3.5
-              <i class="fas fa-star"></i>
+                3.5
+                <i class="fas fa-star"></i>
             </h5>
             <div class="fs-5 mb-5">
                 <p class="text-decoration-line-through mb-0">@String.Format("{0:N0}", Model.Price).Replace(",", ".")</p>
                 <h2 class="text-danger">@String.Format("{0:N0}", Model.DiscountPrice).Replace(",", ".")</h2>
             </div>
             <div>
-              <ul class="list-group mb-5">
-                <li class="list-group-item list-group-item-danger">QUÀ TẶNG KHUYẾN MÃI</li>
-                <li class="list-group-item">1 x Đế Tản Nhiệt Cooler Master X-Slim II trị giá 375.000₫</li>
-                <li class="list-group-item">1 x Chuột Logitech G102 LightSync Black trị giá 400.000₫</li>
-              </ul>
+                <ul class="list-group mb-5">
+                    <li class="list-group-item list-group-item-danger">QUÀ TẶNG KHUYẾN MÃI</li>
+                    <li class="list-group-item">1 x Đế Tản Nhiệt Cooler Master X-Slim II trị giá 375.000₫</li>
+                    <li class="list-group-item">1 x Chuột Logitech G102 LightSync Black trị giá 400.000₫</li>
+                </ul>
             </div>
-            
+
             <div class="d-flex align-items-center" style="gap: 5px;">
-              <button type="button" class="btn btn-light btn-outline-secondary" onclick="decreaseValue()" style="margin-right: 0;">-</button>
-              <input class="form-control text-center" id="inputQuantity" type="number" value="1" style="max-width: 3rem; margin-right: 0;" />
-              <button type="button" class="btn btn-light btn-outline-secondary" onclick="increaseValue()" style="margin-left: 0;">+</button>
-            </div>                      
+                <button type="button" class="btn btn-light btn-outline-secondary" onclick="decreaseValue()" style="margin-right: 0;">-</button>
+                <input class="form-control text-center" id="inputQuantity" type="number" value="1" style="max-width: 3rem; margin-right: 0;" />
+                <button type="button" class="btn btn-light btn-outline-secondary" onclick="increaseValue()" style="margin-left: 0;">+</button>
+            </div>
             <div class="row mt-3 d-flex align-items-center" style="margin: 0;">
-              <div class="col-auto p-0 mb-2">
-                <a href="OrderPage.html" class="btn btn-danger" style="width: 150px; margin-right: 10px;">Mua ngay</a>
-              </div>
-              <div class="col-auto p-0 mb-2">
-                <a href="CartPage.html" class="btn btn-outline-danger" style="width: 220px;" href="@Url.Action("AddToCart", "Cart", new { id = Model.ProductID })">Thêm vào giỏ hàng</a>
-              </div>
+                <div class="col-auto p-0 mb-2">
+                    <a href="OrderPage.html" class="btn btn-danger" style="width: 150px; margin-right: 10px;">Mua ngay</a>
+                </div>
+                <div class="col-auto p-0 mb-2">
+                    <a href="javascript:void(0);"
+                       class="btn btn-outline-danger"
+                       style="width: 220px;"
+                       onclick="addToCart(@Model.ProductID)">
+                        Thêm vào giỏ hàng
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -153,3 +158,49 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    function addToCart(productId) {
+        var quantity = $('#inputQuantity').val();  // Lấy giá trị từ input quantity
+
+        $.ajax({
+            url: '/Cart/AddToCart',
+            type: 'POST',
+            data: {
+                productId: productId,
+                quantity: quantity
+            },
+            success: function (response) {
+                console.log(response); // In ra response để kiểm tra
+                if (response.success) {
+                    // Hiển thị thông báo thành công
+                    alert('Sản phẩm đã được thêm vào giỏ hàng!');
+
+                    // Cập nhật "Tạm tính" và "Tổng cộng" trên giao diện
+                    $('#subtotalAmount').text(response.subtotalAmount.toLocaleString("en-US") + " ₫");
+                    $('#totalAmount').text(response.totalAmount.toLocaleString("en-US") + " ₫");
+                } else {
+                    alert('Có lỗi xảy ra: ' + response.message);
+                }
+            },
+            error: function () {
+                alert('Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.');
+            }
+        });
+    }
+    function increaseValue() {
+        let value = parseInt(document.getElementById('inputQuantity').value, 10);
+        value = isNaN(value) ? 1 : value;
+        document.getElementById('inputQuantity').value = value + 1;
+    }
+
+    function decreaseValue() {
+        let value = parseInt(document.getElementById('inputQuantity').value, 10);
+        value = isNaN(value) ? 1 : value;
+        if (value > 1) { // Prevent value from going below 1
+            document.getElementById('inputQuantity').value = value - 1;
+        }
+    }
+</script>
