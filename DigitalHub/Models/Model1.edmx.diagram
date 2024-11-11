@@ -18,6 +18,9 @@
         <EntityTypeShape EntityType="DigitalHub_DBModel.ProductViewHistory" Width="1.5" PointX="5" PointY="4.375" />
         <AssociationConnector Association="DigitalHub_DBModel.FK_ProductViewHistory_Customer" />
         <AssociationConnector Association="DigitalHub_DBModel.FK_ProductViewHistory_Product" />
+        <EntityTypeShape EntityType="DigitalHub_DBModel.ShoppingCart" Width="1.5" PointX="9.75" PointY="6" />
+        <AssociationConnector Association="DigitalHub_DBModel.FK__ShoppingC__Custo__52593CB8" />
+        <AssociationConnector Association="DigitalHub_DBModel.FK__ShoppingC__Produ__534D60F1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

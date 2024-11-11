@@ -32,7 +32,6 @@
           <Property Name="EmailCus" Type="nvarchar" MaxLength="255" />
           <Property Name="PassCus" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="AddressCus" Type="nvarchar" MaxLength="255" />
-          <Property Name="ShoppingCart" Type="nvarchar" MaxLength="1000" />
           <Property Name="BirthDate" Type="date" />
           <Property Name="Gender" Type="bit" />
         </EntityType>
@@ -76,6 +75,17 @@
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="ViewDate" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="ShoppingCart">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionID" Type="nvarchar" MaxLength="255" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+        </EntityType>
         <Association Name="FK__OrderDeta__IDOrd__440B1D61">
           <End Role="OrderPro" Type="Self.OrderPro" Multiplicity="0..1" />
           <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
@@ -109,6 +119,30 @@
             </Principal>
             <Dependent Role="OrderPro">
               <PropertyRef Name="IDCus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShoppingC__Custo__52593CB8">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="IDCus" />
+            </Principal>
+            <Dependent Role="ShoppingCart">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShoppingC__Produ__534D60F1">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ShoppingCart">
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -156,6 +190,7 @@
           <EntitySet Name="OrderPro" EntityType="Self.OrderPro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductViewHistory" EntityType="Self.ProductViewHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingCart" EntityType="Self.ShoppingCart" Schema="yfjigfwlhosting" store:Type="Tables" />
           <AssociationSet Name="FK__OrderDeta__IDOrd__440B1D61" Association="Self.FK__OrderDeta__IDOrd__440B1D61">
             <End Role="OrderPro" EntitySet="OrderPro" />
             <End Role="OrderDetail" EntitySet="OrderDetail" />
@@ -167,6 +202,14 @@
           <AssociationSet Name="FK__OrderPro__IDCus__403A8C7D" Association="Self.FK__OrderPro__IDCus__403A8C7D">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="OrderPro" EntitySet="OrderPro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShoppingC__Custo__52593CB8" Association="Self.FK__ShoppingC__Custo__52593CB8">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShoppingC__Produ__534D60F1" Association="Self.FK__ShoppingC__Produ__534D60F1">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
           </AssociationSet>
           <AssociationSet Name="FK_Pro_Category" Association="Self.FK_Pro_Category">
             <End Role="Category" EntitySet="Category" />
@@ -214,10 +257,10 @@
           <NavigationProperty Name="OrderProes" Relationship="Self.FK__OrderPro__IDCus__403A8C7D" FromRole="Customer" ToRole="OrderPro" />
           <Property Name="PassCus" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="AddressCus" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="ShoppingCart" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Gender" Type="Boolean" />
           <Property Name="BirthDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="ProductViewHistories" Relationship="DigitalHub_DBModel.FK_ProductViewHistory_Customer" FromRole="Customer" ToRole="ProductViewHistory" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="DigitalHub_DBModel.FK__ShoppingC__Custo__52593CB8" FromRole="Customer" ToRole="ShoppingCart" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -256,6 +299,7 @@
           <NavigationProperty Name="Category1" Relationship="Self.FK_Pro_Category" FromRole="Products" ToRole="Category" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__IDPro__4316F928" FromRole="Products" ToRole="OrderDetail" />
           <NavigationProperty Name="ProductViewHistories" Relationship="DigitalHub_DBModel.FK_ProductViewHistory_Product" FromRole="Product" ToRole="ProductViewHistory" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="DigitalHub_DBModel.FK__ShoppingC__Produ__534D60F1" FromRole="Product" ToRole="ShoppingCart" />
         </EntityType>
         <Association Name="FK_Pro_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
@@ -337,6 +381,15 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductViewHistory" EntitySet="ProductViewHistories" />
           </AssociationSet>
+          <EntitySet Name="ShoppingCarts" EntityType="DigitalHub_DBModel.ShoppingCart" />
+          <AssociationSet Name="FK__ShoppingC__Custo__52593CB8" Association="DigitalHub_DBModel.FK__ShoppingC__Custo__52593CB8">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShoppingC__Produ__534D60F1" Association="DigitalHub_DBModel.FK__ShoppingC__Produ__534D60F1">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ProductViewHistory">
           <Key>
@@ -373,6 +426,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ShoppingCart">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="DigitalHub_DBModel.FK__ShoppingC__Custo__52593CB8" FromRole="ShoppingCart" ToRole="Customer" />
+          <NavigationProperty Name="Product" Relationship="DigitalHub_DBModel.FK__ShoppingC__Produ__534D60F1" FromRole="ShoppingCart" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK__ShoppingC__Custo__52593CB8">
+          <End Type="DigitalHub_DBModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="DigitalHub_DBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="IDCus" />
+            </Principal>
+            <Dependent Role="ShoppingCart">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShoppingC__Produ__534D60F1">
+          <End Type="DigitalHub_DBModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="DigitalHub_DBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ShoppingCart">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -403,7 +493,6 @@
               <MappingFragment StoreEntitySet="Customer">
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="ShoppingCart" ColumnName="ShoppingCart" />
                 <ScalarProperty Name="AddressCus" ColumnName="AddressCus" />
                 <ScalarProperty Name="PassCus" ColumnName="PassCus" />
                 <ScalarProperty Name="IDCus" ColumnName="IDCus" />
@@ -453,6 +542,18 @@
                 <ScalarProperty Name="ViewDate" ColumnName="ViewDate" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingCarts">
+            <EntityTypeMapping TypeName="DigitalHub_DBModel.ShoppingCart">
+              <MappingFragment StoreEntitySet="ShoppingCart">
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
