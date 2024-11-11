@@ -143,9 +143,19 @@ namespace DigitalHub.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = db.Products.Find(id);
-            db.Products.Remove(product);
+            // Xóa tất cả các bản ghi ProductViewHistory liên quan đến sản phẩm
+            var viewHistories = db.ProductViewHistories.Where(pvh => pvh.ProductID == id);
+            db.ProductViewHistories.RemoveRange(viewHistories);
             db.SaveChanges();
+
+            // Sau đó, xóa sản phẩm
+            var product = db.Products.Find(id);
+            if (product != null)
+            {
+                db.Products.Remove(product);
+                db.SaveChanges();
+            }
+
             return RedirectToAction("Index");
         }
 
