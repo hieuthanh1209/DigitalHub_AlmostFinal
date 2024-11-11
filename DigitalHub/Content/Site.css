@@ -1,0 +1,21 @@
+﻿/* Đặt khoảng đệm để giữ nội dung không chạm vào các cạnh */
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Ghi đè hành vi mặc định của bootstrap nơi các danh sách mô tả ngang 
+   sẽ cắt ngắn các thuật ngữ quá dài để vừa trong cột bên trái 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Đặt chiều rộng cho các phần tử đầu vào của biểu mẫu vì chúng mặc định rộng 100% */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+

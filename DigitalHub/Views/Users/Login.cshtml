@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<!-- Hiển thị thông báo thành công -->
+@if (TempData["ThongBao"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["ThongBao"]
+    </div>
+}
+
+<!-- Bảng đăng nhập -->
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4>Đăng nhập</h4>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Login", "Users", FormMethod.Post))
+                    {
+                            if (!ViewData.ModelState.IsValid)
+                            {
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                        {
+                                            <li>@error.ErrorMessage</li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="loginEmail" name="EmailCus" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Mật khẩu</label>
+                            <input type="password" class="form-control" id="loginPassword" name="PassCus" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+                    }
+
+                    <div class="mt-3 text-center">
+                        <span>Chưa có tài khoản? </span>
+                        <a href="@Url.Action("Register", "Users")" class="text-primary">Đăng ký</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+﻿
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Đảm bảo card chiếm toàn bộ chiều cao */
+}
+
+.card-title {
+    font-weight: 600;
+    margin: 0;
+    font-size: 1.2em;
+    line-height: 1em;
+    min-height: 3em; /* Đảm bảo chiều cao tối thiểu cho tiêu đề */
+    display: flex;
+    
+}
+
+.price-section {
+    margin-top: auto; /* Đẩy phần giá xuống đáy của card-body */
+}
+
+.price, .old-price, .rating {
+    margin: 0;
+}
+
+.rating {
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .card img {
+        height: 180px;
+    }
+
+    .card-body {
+        padding: 0.6rem;
+    }
+}
+/* Kiểm soát modal khi bật checkbox */
+#modal-toggle:checked {
+    display: block;
+}
+/* Lớp phủ (Overlay) */
+#overlay {
+    display: none; /* Ẩn lớp phủ */
+}
+
+/* Hiển thị Modal khi checkbox được chọn */
+#modal-toggle:checked + .modal; {
+    display: block;
+}
+
+.modal {
+    display: none;
+    z-index: 2000; /* Đặt z-index cao hơn overlay */
+}
+.modal-content {
+    position: relative;
+    padding: 20px;
+}
+
+/*Chỉnh kích thước img sản phẩm*/
+.card-img-top { 
+    width: 240px;
+    height: 177px;
+    object-fit: contain;
+}
+
+/* Đảm bảo ảnh và thẻ card bên trong cột vừa với kích thước */
+.product-card {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    min-height: 100%;
+}
+

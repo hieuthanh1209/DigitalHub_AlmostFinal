@@ -1,0 +1,59 @@
+﻿@model DigitalHub.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<div style="margin: 10px auto; width: 70%;">
+    <h2 style="text-align: center">CHI TIẾT SẢN PHẨM</h2>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                TÊN SẢN PHẨM
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NamePro)
+            </dd>
+            <dt>
+                MÔ TẢ
+            </dt>
+            <dd>
+                <p>@Html.Raw(Model.DecriptionPro?.Replace("\n", "<br>"))</p>
+            </dd>
+            <dt>
+                GIÁ GỐC
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+            <dt>
+                GIÁ GIẢM
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DiscountPrice)
+            </dd>
+            <dt>
+                HÌNH MINH HỌA
+            </dt>
+            <dd>
+                <img src="~/Images/@Model.Category1.NameCate/@Model.ImagePro" class="scaled-image" />
+            </dd>
+
+            <dt>
+                NHÓM SẢN PHẨM
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Category1.NameCate)
+            </dd>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }, new
+        {
+            @class
+       = "btn btn-success"
+        }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>

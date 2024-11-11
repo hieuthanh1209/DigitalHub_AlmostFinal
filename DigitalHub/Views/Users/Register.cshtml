@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Tạo tài khoản";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<!-- Hiển thị thông báo thành công -->
+@if (TempData["ThongBao"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["ThongBao"]
+    </div>
+}
+
+<!-- Bảng đăng ký -->
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4>Đăng ký</h4>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Register", "Users", FormMethod.Post))
+                    {
+                            if (!ViewData.ModelState.IsValid)
+                            {
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                        {
+                                            <li>@error.ErrorMessage</li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Họ và Tên</label>
+                            <input type="text" class="form-control" id="name" name="NameCus" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="registerEmail" name="EmailCus" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerPassword" class="form-label">Mật khẩu</label>
+                            <input type="password" class="form-control" id="registerPassword" name="PassCus" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="ConfirmPassCus" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Đăng ký</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

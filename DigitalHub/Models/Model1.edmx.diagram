@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4a4bc6bf0a8a4db7b1035b752c7bc8cd" Name="Diagram1">
+        <EntityTypeShape EntityType="DigitalHub_DBModel.AdminUser" Width="1.5" PointX="10.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DigitalHub_DBModel.Category" Width="1.5" PointX="2.125" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DigitalHub_DBModel.Customer" Width="1.5" PointX="1.875" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DigitalHub_DBModel.OrderDetail" Width="1.5" PointX="7.125" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DigitalHub_DBModel.OrderPro" Width="1.5" PointX="7.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DigitalHub_DBModel.Product" Width="1.5" PointX="4.5" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="DigitalHub_DBModel.FK_Pro_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="DigitalHub_DBModel.FK__OrderPro__IDCus__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="DigitalHub_DBModel.FK__OrderDeta__IDOrd__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="DigitalHub_DBModel.FK__OrderDeta__IDPro__4316F928" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DigitalHub_DBModel.ProductViewHistory" Width="1.5" PointX="5" PointY="4.375" />
+        <AssociationConnector Association="DigitalHub_DBModel.FK_ProductViewHistory_Customer" />
+        <AssociationConnector Association="DigitalHub_DBModel.FK_ProductViewHistory_Product" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

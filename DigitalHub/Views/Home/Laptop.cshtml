@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DigitalHub.Models.Product>
+
+@{
+    ViewBag.Title = "Laptop";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+
+<div class="p-5">
+    <h2 class="mb-4">Laptop bán chạy</h2>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <!-- Sản phẩm 1 -->
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-2">
+                <div class="card w-100">
+                    <img class="card-img-top" alt="laptop_image" src="~/Images/Laptop/@item.ImagePro" />
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="@Url.Action("Details", "Home", new { id = item.ProductID })" class="text-dark text-decoration-none">
+                                @{
+                                    var namePro = item.NamePro;
+                                    var displayText = namePro.Length > 44 ? namePro.Substring(0, 44) + "..." : namePro;
+                                }
+                                @displayText
+                            </a>
+
+                        </h5>
+                        <p class="old-price text-muted text-decoration-line-through mb-1">@String.Format("{0:N0}", item.Price).Replace(",", ".")</p>
+                        <p class="price text-danger fs-5 mb-1">
+                            @String.Format("{0:N0}", item.DiscountPrice).Replace(",", ".")
+                        </p>
+                        <p class="rating text-warning mb-3">
+                            3.5 <i class="fas fa-star"></i>
+                        </p>
+                        <a href="OrderPage.html" class="btn btn-outline-danger">Mua ngay</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

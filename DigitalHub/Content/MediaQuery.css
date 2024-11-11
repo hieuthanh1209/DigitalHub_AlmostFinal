@@ -1,0 +1,48 @@
+﻿/*Mobile*/
+/* CSS cho các kích thước màn hình */
+#nav-expand {
+    /* Các thuộc tính CSS khác */
+    display: flex;
+    justify-content: space-around;
+}
+
+/* CSS chỉ áp dụng cho màn hình nhỏ */
+@media (max-width: 767px) {
+    #nav-expand {
+        width: 100%;
+    }
+}
+
+/* CSS chỉ áp dụng cho màn hình tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .navbar-nav {
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Điều chỉnh kích thước sản phẩm */
+    .product-card {
+        min-height: 300px;
+    }
+
+        .product-card img {
+            height: 120px;
+        }
+
+    .card-title a {
+        font-size: 12px;
+    }
+
+    .price {
+        font-size: 14px;
+    }
+
+    .btn-wishlist {
+        top: 5px;
+        right: 5px;
+    }
+}
+
+
+

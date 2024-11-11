@@ -1,0 +1,58 @@
+﻿@model DigitalHub.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<div style="margin: 10px auto; width: 70%;">
+    <h3 style="text-align:center">BẠN CÓ CHẮC CHẮN MUỐN XÓA SẢN PHẨM NÀY?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                TÊN SẢN PHẨM
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NamePro)
+            </dd>
+            <dt>
+                MÔ TẢ
+            </dt>
+            <dd>
+                <p>@Html.Raw(Model.DecriptionPro?.Replace("\n", "<br>"))</p>
+            </dd>
+            <dt>
+                GIÁ GỐC
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+            <dt>
+                GIÁ GIẢM
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DiscountPrice)
+            </dd>
+            <dt>
+                HÌNH ẢNH
+            </dt>
+            <dd>
+                <img src="~/Images/@Model.ImagePro" />
+            </dd>
+            <dt>
+                NHÓM SẢN PHẨM
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Category1.NameCate)
+            </dd>
+        </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <input type="submit" value="Xóa" class="btn btn-danger" /> |
+                @Html.ActionLink("TRỞ LẠI", "Index")
+            </div>
+        }
+    </div>
+</div>

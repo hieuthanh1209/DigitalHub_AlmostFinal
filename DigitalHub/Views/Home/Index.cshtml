@@ -1,0 +1,192 @@
+﻿@model IEnumerable<DigitalHub.Models.Product>
+
+@{
+    ViewBag.Title = "DigitalHub";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/mystyle.css">
+<link rel="stylesheet" href="~/Content/Slider.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+
+<div id="Slider" class="container py-2 pt-5 bg-info rounded-3">
+    <div class="row">
+        <div class="col-12 position-relative">
+            <div id="productSlider" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <!-- Vòng lặp nhóm sản phẩm -->
+                    @for (int i = 0; i < Model.Count(); i += 5)
+                    {
+                        <div class="carousel-item @(i == 0 ? "active" : "")">
+                            <div class="row justify-content-center">
+                                <!-- Vòng lặp hiển thị từng sản phẩm trong nhóm 5 sản phẩm -->
+                                @for (int j = i; j < i + 5 && j < Model.Count(); j++)
+                                {
+                                    var product = Model.ElementAt(j);
+
+                                    <div class="card product-card m-1 position-relative d-flex flex-column">
+                                        @{
+                                            var discount = Math.Round(((product.Price.GetValueOrDefault() - product.DiscountPrice.GetValueOrDefault()) / product.Price.GetValueOrDefault() * 100), 0);
+                                        }
+                                        @if (discount > 0)
+                                        {
+                                            <div class="discount-badge">
+                                                -@discount%
+                                            </div>
+                                        }
+
+                                        <button class="btn-wishlist">
+                                            <i class="fas fa-heart"></i>
+                                        </button>
+
+                                        <div class="product-image-container">
+                                            <img src="~/Images/@product.Category1.NameCate/@product.ImagePro" class="card-img-top" alt="@product.NamePro">
+                                        </div>
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <a href="@Url.Action("Details", "Home", new { id = product.ProductID })">
+                                                    @{
+                                                        var namePro = product.NamePro;
+                                                        var displayText = namePro.Length > 44 ? namePro.Substring(0, 44) + "..." : namePro;
+                                                    }
+                                                    @displayText
+                                                </a>
+                                            </h5>
+
+                                            <div class="price-section">
+                                                <p class="price text-danger">@String.Format("{0:N0}", product.DiscountPrice).Replace(",", ".")₫</p>
+                                                <p class="old-price">@String.Format("{0:N0}", product.Price).Replace(",", ".")₫</p>
+                                            </div>
+
+                                            <div class="rating">
+                                                <div class="stars">
+                                                    <span id="ratingValue-@product.NamePro"></span>
+                                                    <i class="fas fa-star" style="color: rgb(255,193,7)"></i>
+                                                </div>
+                                                <span class="count">(123)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#productSlider" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#productSlider" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="p-5">
+    <h2 class="mb-4">Mặt hàng bán chạy</h2>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mb-2">
+                <div class="card product-card">
+                    <img class="card-img-top" alt="laptop_image" src="~/Images/@item.Category1.NameCate/@item.ImagePro" />
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">
+                            <a href="@Url.Action("Details", "Home", new { id = item.ProductID })" class="text-dark text-decoration-none">
+                                @{
+                                    var namePro = item.NamePro;
+                                    var displayText = namePro.Length > 44 ? namePro.Substring(0, 44) + "..." : namePro;
+                                }
+                                @displayText
+                            </a>
+                        </h5>
+                        <div class="price-section">
+                            <p class="price text-danger fs-5 mb-1 ">
+                                <strong>@String.Format("{0:N0}", item.DiscountPrice).Replace(",", ".")đ</strong>
+                            </p>
+                            <p class="old-price text-muted text-decoration-line-through mb-1">@String.Format("{0:N0}", item.Price).Replace(",", ".")đ</p>
+                        </div>
+                        <p class="rating text-warning mt-2 mb-0">
+                            <span id="ratingValue-@item.NamePro" style="color: #ee4d2d"></span> <i class="fas fa-star"></i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+<!-- Thêm JavaScript -->
+<script>
+    function generateRandomRatings() {
+        // Lấy tất cả các phần tử có id bắt đầu bằng "ratingValue-"
+        const ratingElements = document.querySelectorAll('[id^="ratingValue-"]');
+
+        // Tạo rating ngẫu nhiên cho mỗi phần tử
+        ratingElements.forEach(element => {
+            const rating = (Math.random() * 4 + 1).toFixed(1);
+            element.textContent = rating;
+        });
+    }
+
+    // Thiết lập sự kiện click cho nút wishlist
+    function setupWishlistButtons() {
+        const wishlistButtons = document.querySelectorAll('.btn-wishlist');
+
+        wishlistButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                this.classList.toggle('active');
+            });
+        });
+    }
+
+    // Chạy function khi trang được tải
+    window.onload = function () {
+        generateRandomRatings();
+        setupWishlistButtons();
+    };
+    function generateRandomRatings() {
+        // Lấy tất cả các phần tử có id bắt đầu bằng "ratingValue-"
+        const ratingElements = document.querySelectorAll('[id^="ratingValue-"]');
+
+        // Tạo rating ngẫu nhiên cho mỗi phần tử
+        ratingElements.forEach(element => {
+            const rating = (Math.random() * 4 + 1).toFixed(1);
+            element.textContent = rating;
+        });
+    }
+
+    // Thiết lập sự kiện click cho nút wishlist
+    function setupWishlistButtons() {
+        const wishlistButtons = document.querySelectorAll('.btn-wishlist');
+
+        wishlistButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                this.classList.toggle('active');
+
+                // Thêm lớp 'animate' vào icon
+                const icon = this.querySelector('i');
+                icon.classList.add('animate');
+
+                // Xóa lớp 'animate' sau khi hoạt hình kết thúc
+                icon.addEventListener('animationend', function () {
+                    icon.classList.remove('animate');
+                }, { once: true });
+            });
+        });
+    }
+
+    // Chạy function khi trang được tải
+    window.onload = function () {
+        generateRandomRatings();
+        setupWishlistButtons();
+    };
+
+</script>

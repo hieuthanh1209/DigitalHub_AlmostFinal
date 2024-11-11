@@ -1,0 +1,61 @@
+﻿@model IEnumerable<DigitalHub.Models.OrderPro>
+
+@{
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+    ViewBag.Title = "Hóa đơn của bạn";
+    string currentAction = ViewContext.RouteData.Values["action"].ToString();
+}
+
+<div class="container my-3">
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Partial("_LeftSidebar")
+        </div>
+
+        <!-- Cột bên phải: Nội dung -->
+        <div class="col-md-9">
+            <h2 class="mb-3">Hóa đơn của bạn</h2>
+            <hr class="mt-0 mb-4" />
+            @if (!Model.Any())
+            {
+                <p>Bạn chưa có hóa đơn nào.</p>
+            }
+            else
+            {
+                foreach (var order in Model)
+                {
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            <strong>Đơn hàng #@order.ID</strong> - Ngày đặt: @order.DateOrder?.ToString("dd/MM/yyyy")
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Địa chỉ giao hàng:</strong> @order.AddressDeliverry</p>
+                            <table class="table table-bordered mb-2">
+                                <thead>
+                                    <tr>
+                                        <th>Sản phẩm</th>
+                                        <th>Số lượng</th>
+                                        <th>Đơn giá</th>
+                                        <th>Thành tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var detail in order.OrderDetails)
+                                    {
+                                        <tr>
+                                            <td>@detail.Product.NamePro</td>
+                                            <td>@detail.Quantity</td>
+                                            <td>@String.Format("{0:N0}₫", detail.UnitPrice)</td>
+                                            <td>@String.Format("{0:N0}₫", detail.UnitPrice * detail.Quantity)</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <p class="text-right mb-0"><strong>Tổng tiền: @String.Format("{0:N0}₫", order.OrderDetails.Sum(d => d.UnitPrice * d.Quantity))</strong></p>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

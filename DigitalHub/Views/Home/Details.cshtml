@@ -1,0 +1,155 @@
+﻿@model DigitalHub.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<div class="container px-4 px-lg-5 my-3">
+    <div class="row align-items-top">
+        <div class="col-md-6 mt-2">
+          <img class="card-img-top mb-5 mb-md-0 custom-rounded" src="~/Images/@Model.Category1.NameCate/@Model.ImagePro"/>
+        </div>
+        <div class="col-md-6">
+            <h1 class="fw-bolder">@Html.DisplayFor(model => model.NamePro)</h1>
+            <h5 class="rating">
+              3.5
+              <i class="fas fa-star"></i>
+            </h5>
+            <div class="fs-5 mb-5">
+                <p class="text-decoration-line-through mb-0">@String.Format("{0:N0}", Model.Price).Replace(",", ".")</p>
+                <h2 class="text-danger">@String.Format("{0:N0}", Model.DiscountPrice).Replace(",", ".")</h2>
+            </div>
+            <div>
+              <ul class="list-group mb-5">
+                <li class="list-group-item list-group-item-danger">QUÀ TẶNG KHUYẾN MÃI</li>
+                <li class="list-group-item">1 x Đế Tản Nhiệt Cooler Master X-Slim II trị giá 375.000₫</li>
+                <li class="list-group-item">1 x Chuột Logitech G102 LightSync Black trị giá 400.000₫</li>
+              </ul>
+            </div>
+            
+            <div class="d-flex align-items-center" style="gap: 5px;">
+              <button type="button" class="btn btn-light btn-outline-secondary" onclick="decreaseValue()" style="margin-right: 0;">-</button>
+              <input class="form-control text-center" id="inputQuantity" type="number" value="1" style="max-width: 3rem; margin-right: 0;" />
+              <button type="button" class="btn btn-light btn-outline-secondary" onclick="increaseValue()" style="margin-left: 0;">+</button>
+            </div>                      
+            <div class="row mt-3 d-flex align-items-center" style="margin: 0;">
+              <div class="col-auto p-0 mb-2">
+                <a href="OrderPage.html" class="btn btn-danger" style="width: 150px; margin-right: 10px;">Mua ngay</a>
+              </div>
+              <div class="col-auto p-0 mb-2">
+                <a href="CartPage.html" class="btn btn-outline-danger" style="width: 220px;" href="@Url.Action("AddToCart", "Cart", new { id = Model.ProductID })">Thêm vào giỏ hàng</a>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container px-4 px-lg-5 my-5">
+    <div class="row align-items-start">
+        <div class="col-md-8">
+            <h2>Thông tin sản phẩm</h2>
+            <table class="table table-bordered custom-rounded">
+                <thead class="table-danger">
+                    <tr>
+                        <td>@Html.Raw(Model.DecriptionPro?.Replace("\n", "<br>"))</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <h2>Đánh giá</h2>
+            <table class="table table-bordered custom-rounded mb-2">
+                <thead class="table-danger">
+                    <tr>
+                        <th>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>Thanh Hiếu</span>
+                                <p class="rating mb-0">
+                                    5
+                                    <i class="fas fa-star"></i>
+                                </p>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Tôi đã mua và thấy rất hài lòng về cấu hình cũng như hiệu năng sử dụng của máy. Máy ngoài màn hình đẹp, chip khoẻ rất phù hợp với những bạn có nhu cầu văn phòng cơ bản mà còn tích hợp thêm cả mảng đồ hoạ, tiện dụng, nhỏ gọn, dễ dàng mang theo, pin khoẻ có thể sử dụng một ngày dài. Một sản phẩm đáng để tham khảo!!!
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-bordered custom-rounded mb-2">
+                <thead class="table-danger">
+                    <tr>
+                        <th>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>Tiến Dũng</span>
+                                <p class="rating mb-0">
+                                    5
+                                    <i class="fas fa-star"></i>
+                                </p>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Bình luận này chỉ mang để lấy xu, sản phẩm chưa dùng nhưng tôi dự đoán là nó rất tuyệt vời :D
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-bordered custom-rounded mb-2">
+                <thead class="table-danger">
+                    <tr>
+                        <th>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>Văn Ba</span>
+                                <p class="rating mb-0">
+                                    1
+                                    <i class="fas fa-star"></i>
+                                </p>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Thằng ở trên xà lơ quá, cho 1 sao
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-bordered custom-rounded mb-2">
+                <thead class="table-danger">
+                    <tr>
+                        <th>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>Hải Nam</span>
+                                <p class="rating mb-0">
+                                    5
+                                    <i class="fas fa-star"></i>
+                                </p>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Bình luận này chỉ giúp bù lại 4 sao bị trừ từ Văn Ba
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

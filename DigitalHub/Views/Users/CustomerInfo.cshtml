@@ -1,0 +1,100 @@
+﻿@model DigitalHub.Models.Customer
+
+@{
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+    ViewBag.Title = "Thông tin tài khoản";
+    string currentAction = ViewContext.RouteData.Values["action"].ToString();
+}
+
+<div class="container my-3">
+    <div class="row">
+        <!-- Cột bên trái: Menu -->
+        <div class="col-md-3">
+            @Html.Partial("_LeftSidebar")
+        </div>
+
+        <!-- Cột bên phải: Nội dung -->
+        <div class="col-md-9">
+            <h2 class="mb-3">Thông tin tài khoản</h2>
+            <hr class="mt-0 mb-4" />
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+            @using (Html.BeginForm("CustomerInfo", "Users", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.IDCus)
+
+                <!-- Họ và tên -->
+                <div class="form-group row mb-2">
+                    @Html.LabelFor(model => model.NameCus, "Họ và tên", new { @class = "col-sm-2 col-form-label text-right" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.NameCus, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.NameCus, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Giới tính -->
+                <div class="form-group row mb-2">
+                    @Html.Label("Giới tính", new { @class = "col-sm-2 col-form-label text-right" })
+                    <div class="col-sm-10">
+                        <div class="form-check form-check-inline">
+                            @Html.RadioButtonFor(model => model.Gender, true, new { @class = "form-check-input", id = "GenderMale" })
+                            <label class="form-check-label" for="GenderMale">Nam</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            @Html.RadioButtonFor(model => model.Gender, false, new { @class = "form-check-input", id = "GenderFemale" })
+                            <label class="form-check-label" for="GenderFemale">Nữ</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Số điện thoại -->
+                <div class="form-group row mb-2">
+                    @Html.LabelFor(model => model.PhoneCus, "Số điện thoại", new { @class = "col-sm-2 col-form-label text-right" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.PhoneCus, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PhoneCus, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group row mb-2">
+                    @Html.LabelFor(model => model.EmailCus, "Email", new { @class = "col-sm-2 col-form-label text-right" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.EmailCus, new { @class = "form-control", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.EmailCus, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Địa chỉ -->
+                <div class="form-group row mb-2">
+                    @Html.LabelFor(model => model.AddressCus, "Địa chỉ", new { @class = "col-sm-2 col-form-label text-right" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.AddressCus, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.AddressCus, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Ngày sinh -->
+                <div class="form-group row mb-2">
+                    @Html.LabelFor(model => model.BirthDate, "Ngày sinh", new { @class = "col-sm-2 col-form-label text-right" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.BirthDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                        @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Nút lưu thay đổi -->
+                <div class="form-group row">
+                    <div class="col-sm-10 offset-sm-2">
+                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
