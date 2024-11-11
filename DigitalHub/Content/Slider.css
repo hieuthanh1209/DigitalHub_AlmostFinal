@@ -1,297 +1,190 @@
-﻿#Slider .product-card {
-position: relative; /* Thêm dòng này */
-transition: transform 0.3s ease, box-shadow 0.3s ease;
-border: none;
-background: #ffffff;
-border-radius: 12px;
-display: flex;
-flex-direction: column;
-margin: 5px;
-flex: 0 0 calc(20% - 10px);
-max-width: calc(20% - 10px);
-box-sizing: border-box;
+﻿#slider-section .card {
+    position: relative;
+    overflow: hidden; /* Nếu bạn muốn giới hạn phần phát sáng bên trong card */
 }
-
-#Slider .product-card img {
-object-fit: cover;
-height: 200px;
-border-radius: 12px 12px 0 0;
-}
-
-#Slider .product-card .card-body {
-padding: 1rem;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-height: 100%;
-}
-
-#Slider .product-card .card-title {
-font-weight: 500;
-margin: 0;
-font-size: 1.2em;
-line-height: 1.2em;
-flex-grow: 1;
-}
-
-#Slider .product-card .price {
-font-size: 1em;
-margin-top: 10px;
-font-weight: 500;
-color: #2c3e50;
-}
-
-#Slider .product-card:hover {
-transform: translateY(-5px);
-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-#Slider .carousel-control-prev,
-#Slider .carousel-control-next {
-width: 40px;
-height: 40px;
-top: 50%;
-transform: translateY(-50%);
-opacity: 0.3;
-}
-
-#Slider .carousel-control-prev-icon,
-#Slider .carousel-control-next-icon {
-padding: 20px;
-}
-
-@media (max-width: 768px) {
-#Slider .product-card img {
-height: 180px;
-}
-
-#Slider .product-card .card-body {
-padding: 0.6rem;
-}
-}
-
-#Slider .product-card {
-position: relative;
-height: 100%;
-min-height: 400px;
-}
-
-.product-image-container {
-flex: 0 0 auto;
-position: relative;
-padding-top: 100%;
-overflow: hidden;
-}
-
-.product-image-container img {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-object-fit: cover;
-margin-top: 25px;
-}
-
-/* Badge giảm giá */
-.discount-badge {
-position: absolute;
-top: 8px;
-left: 8px;
-background: #ee4d2d;
-color: white;
-padding: 2px 4px;
-border-radius: 2px;
-font-size: 12px;
-font-weight: 500;
-z-index: 1;
-}
-
-.product-card img {
-width: 100%;
-height: 200px;
-object-fit: contain;
-padding: 10px;
-flex-shrink: 0;
-}
-
-.card-body {
-padding: 8px 12px;
-display: flex;
-flex-direction: column;
-flex-grow: 1;
-}
-
-.card-title {
-margin-bottom: 8px;
-min-height: 40px;
-}
-
-.card-title a {
-color: #333;
-font-size: 15px;
-text-decoration: none;
-line-height: 1.4;
-display: -webkit-box;
--webkit-line-clamp: 2;
--webkit-box-orient: vertical;
-overflow: hidden;
-}
-
-/* Phần giá */
-.price-section {
-margin: 8px 0;
-margin-top: auto;
-}
-
-.price {
-color: #ee4d2d;
-font-size: 16px;
-font-weight: 500;
-margin: 0;
-}
-
-.old-price {
-color: #999;
-font-size: 13px;
-text-decoration: line-through;
-margin: 0;
-}
-
-/* Đánh giá */
-.rating {
-display: flex;
-align-items: center;
-gap: 4px;
-margin-bottom: 8px;
-}
-
-.stars {
-color: #ee4d2d;
-font-size: 13px;
-}
-
-.count {
-color: #999;
-font-size: 12px;
-}
-
-/* Nút yêu thích */
-.btn-wishlist {
-position: absolute;
-top: 8px;
-right: 8px;
-background: none;
-border: none;
-color: #999;
-padding: 4px;
-cursor: pointer;
-z-index: 2;
-}
-
-.btn-wishlist:hover {
-color: #ee4d2d;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-.product-card {
-min-height: 330px;
-}
-
-.product-card img {
-height: 150px;
-}
-
-.card-title a {
-font-size: 13px;
-}
-
-.price {
-font-size: 15px;
-}
-}
-
-.card-body {
-flex: 1 0 auto;
-}
-
-.card-title {
-min-height: 10px;
-margin-bottom: 1px;
-}
-
-.price-section {
-margin-top: auto;
-}
-
-.rating {
-margin-top: 0.5rem;
-}
-
-/* Nút yêu thích */
-.btn-wishlist {
-position: absolute;
-top: 8px;
-right: 8px;
-background: none;
-border: none;
-color: #999;
-padding: 4px;
-cursor: pointer;
-z-index: 2;
-}
-
-.btn-wishlist:hover {
-color: #ee4d2d;
-}
-
-/* Thêm CSS cho trạng thái active */
-.btn-wishlist.active {
-color: #ee4d2d; /* Màu đỏ khi nút được kích hoạt */
-}
-
-/* Định nghĩa hoạt hình "pop" */
-@keyframes pop {
-    0% {
-        transform: scale(1);
+    #slider-section .card:hover .image-container img {
+        transform: scale(1.2) !important;
+        transition: transform 0.3s ease-in-out !important;
     }
 
-    50% {
-        transform: scale(1.3);
+#slider-section .discount-badge {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: #ee4d2d;
+    color: white;
+    padding: 4px 6px;
+    border-radius: 2px;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+#slider-section .discount_price {
+    font-size: 1.15em;
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 1px;
+    margin-top: 10px;
+}
+#slider-section .price {
+    font-size: 1em;
+}
+
+
+
+#slider-section .card {
+    border-radius: 8px; /* Điều chỉnh bo tròn theo mong muốn */
+    overflow: hidden; /* Đảm bảo các phần tử bên trong không tràn ra */
+}
+#slider-section .card-body {
+    padding: 10px; /* Điều chỉnh theo nhu cầu */
+}
+
+
+#slider-section .wishlist-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #ccc;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+    #slider-section .wishlist-icon.active {
+        color: #ff4d4f;
+    }
+
+    #slider-section .wishlist-icon.clicked {
+        animation: sparkle 0.5s ease-in-out;
+    }
+
+@keyframes sparkle {
+    0% {
+        transform: scale(1);
+        color: #ff4d4f;
+    }
+
+    15% {
+        transform: scale(1.2) rotate(10deg);
+        color: #ff69b4;
+    }
+
+    30% {
+        transform: scale(1.5) rotate(-15deg);
+        color: #ff1493;
+    }
+
+    45% {
+        transform: scale(1.3) rotate(5deg);
+        color: #ff69b4;
+    }
+
+    60% {
+        transform: scale(1.4) rotate(-10deg);
+        color: #ff4d4f;
     }
 
     100% {
         transform: scale(1);
+        color: #ff4d4f;
     }
 }
 
-/* Áp dụng hoạt hình cho icon khi có lớp 'animate' */
-.btn-wishlist i.animate {
-    animation: pop 0.3s ease;
+/* Ảnh sản phẩm */
+#slider-section .image-container {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+}
+    #slider-section .image-container img {
+        border-radius: inherit; /* Kế thừa từ thẻ cha */
+    }
+#slider-section .card:hover .image-container img {
+    transform: scale(1.1) !important; /* Giảm mức phóng to để tránh ảnh hưởng chiều cao */
+    transition: transform 0.3s ease-in-out !important;
 }
 
-/* Nút yêu thích */
-.btn-wishlist {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: none;
-    border: none;
-    color: #999;
-    padding: 4px;
-    cursor: pointer;
-    z-index: 2;
+
+#slider-section .card-img-top {
+    height: 100%; /* Chỉnh sửa từ 150px sang 100% để duy trì sự đồng nhất */
+    object-fit: contain;
+    width: auto; /* Đảm bảo ảnh giữ tỉ lệ */
 }
 
-    .btn-wishlist:hover {
-        color: #ee4d2d;
+
+#slider-section .card-img-top {
+    height: 150px;
+    object-fit: contain;
+    width: 100%;
+    aspect-ratio: 4/3;
+}
+
+/*Button carousel*/
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px !important; /* Tăng kích thước chiều rộng thêm 10px */
+    height: 50px !important; /* Tăng kích thước chiều cao thêm 10px */
+    top: 50% !important; /* Đặt ở giữa theo chiều dọc */
+    transform: translateY(-50%) !important; /* Căn giữa theo trục Y */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 30px !important;
+    height: 30px !important;
+    background-size: 100% 100% !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border-radius: 50% !important;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px !important;
+    height: 50px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+}
+
+
+#slider-section .product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Đảm bảo nội dung được giãn đều */
+}
+
+    #slider-section .product-card .card-title {
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Chỉ định hiển thị tối đa 2 dòng */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        max-height: calc(2 * 1.2em); /* Điều chỉnh chiều cao tối đa của 2 dòng dựa trên line-height */
+        line-height: 1.2em; /* Đặt chiều cao dòng phù hợp với nội dung */
     }
 
-    /* Trạng thái active */
-    .btn-wishlist.active {
-        color: #ee4d2d;
-    }
 
 
 
+#productSlider .card-title > a {
+    text-decoration: none;
+    color: #000;
+}
+
+
+
+
+
+
+
+
+    

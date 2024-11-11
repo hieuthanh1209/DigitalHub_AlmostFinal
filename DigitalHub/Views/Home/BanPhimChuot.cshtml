@@ -8,34 +8,110 @@
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
 
-<div class="p-5">
-    <h2 class="mb-4">Bàn phím, chuột bán chạy</h2>
+<div id="ban-phim-chuot-section">
+    <div class="p-5">
+        <h2 class="mb-4">Bàn phím, chuột bán chạy</h2>
 
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <!-- Sản phẩm 1 -->
-            <div class="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <div class="card w-100">
-                    <img class="card-img-top" alt="laptop_image" src="~/Images/@item.ImagePro" />
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <a href="@Url.Action("Details", "Home", new { id = item.ProductID })" class="text-dark text-decoration-none">
-                                @Html.DisplayFor(modelItem => item.NamePro)
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <!-- Thẻ sản phẩm -->
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
+                    <div class="card w-100">
+                        <!-- Ảnh sản phẩm -->
+                        <a href="@Url.Action("Details", "Home", new { id = item.ProductID })">
+                            <div class="image-container">
+                                <img class="card-img-top" alt="component_image" src="~/Images/@item.Category1.NameCate/@item.ImagePro" onerror="this.style.display='none'" />
+                            </div>
+                        </a>
+
+                        <!-- Discount Badge -->
+                        @{
+                            var discount = Math.Round(((item.Price.GetValueOrDefault() - item.DiscountPrice.GetValueOrDefault()) / item.Price.GetValueOrDefault() * 100), 0);
+                        }
+                        @if (discount > 0)
+                        {
+                            <div class="discount-badge">
+                                -@discount%
+                            </div>
+                        }
+
+                        <!-- Installment Badge -->
+                        <div class="custom-label">
+                            Trả góp 0%
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class="card-body d-flex flex-column">
+                            <a href="@Url.Action("Details", "Home", new { id = item.ProductID })" class="text-decoration-none">
+                                <p class="card-title text-dark text-decoration-none">
+                                    @(item.NamePro.Length > 40 ? item.NamePro.Substring(0, 40) + "..." : item.NamePro)
+                                </p>
                             </a>
-                        </h5>
-                        <p class="old-price text-muted text-decoration-line-through mb-1">@String.Format("{0:N0}", item.Price).Replace(",", ".")</p>
-                        <p class="price text-danger fs-5 mb-1">
-                            @String.Format("{0:N0}", item.DiscountPrice).Replace(",", ".")
-                        </p>
-                        <p class="rating text-warning mb-3">
-                            3.5 <i class="fas fa-star"></i>
-                        </p>
-                        <a href="OrderPage.html" class="btn btn-outline-danger">Mua ngay</a>
+
+                            <!-- Prices -->
+                            <a href="@Url.Action("Details", "Home", new { id = item.ProductID })" class="text-decoration-none">
+                                <div class="mb-1 d-flex align-items-center justify-content-start">
+                                    <p class="discount_price text-danger fw-bold mb-0 me-2">
+                                        @String.Format("{0:N0}", item.DiscountPrice).Replace(",", ".")đ
+                                    </p>
+                                    <p class="text-muted text-decoration-line-through mb-0">
+                                        @String.Format("{0:N0}", item.Price).Replace(",", ".")đ
+                                    </p>
+                                </div>
+                            </a>
+                            <!-- Installment Info -->
+                            <p class="text-muted" style="font-size: 0.8rem;">
+                                Không phí chuyển đổi khi trả góp 0% qua thẻ tín dụng kỳ hạn 3-6 tháng
+                            </p>
+                            <!-- Rating and Favorite -->
+                            <p class="rating text-warning mt-2 mb-0">
+                                <span id="ratingValue-@item.NamePro" style="color: #ee4d2d"></span> <i class="fas fa-star"></i>
+                            </p>
+                            <!-- Wishlist Icon -->
+                            <div class="wishlist-icon" onclick="toggleWishlist(event, this)">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
 </div>
 
+
+<!-- Thêm JavaScript -->
+<script>
+    // WishList
+    function toggleWishlist(event, element) {
+        event.stopPropagation(); // Ngăn chặn sự kiện nhấn vào thẻ cha (tránh chuyển trang)
+
+        if (!element.classList.contains('clicked')) {
+            element.classList.toggle('active');
+
+            // Thêm hiệu ứng click
+            element.classList.add('clicked');
+            setTimeout(() => {
+                element.classList.remove('clicked');
+            }, 500); // Thời gian khớp với thời gian hiệu ứng sparkle
+        }
+    }
+
+    function generateRandomRatings() {
+        // Lấy tất cả các phần tử có id bắt đầu bằng "ratingValue-"
+        const ratingElements = document.querySelectorAll('[id^="ratingValue-"]');
+
+        // Tạo rating ngẫu nhiên cho mỗi phần tử
+        ratingElements.forEach(element => {
+            const rating = (Math.random() * 4 + 1).toFixed(1);
+            element.textContent = rating;
+        });
+    }
+
+    // Chạy function khi trang được tải
+    window.onload = function () {
+        generateRandomRatings();
+        setupWishlistButtons();
+    };
+</script>

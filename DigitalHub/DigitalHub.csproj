@@ -198,6 +198,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Home_BanPhim.css" />
+    <Content Include="Content\Home_Laptop.css" />
+    <Content Include="Content\Home_LinhKien.css" />
+    <Content Include="Content\Home_TaiNghe.css" />
     <Content Include="Content\mystyle.css" />
     <Content Include="Content\MediaQuery.css" />
     <Content Include="Content\Slider.css" />
