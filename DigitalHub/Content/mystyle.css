@@ -91,26 +91,26 @@
             animation: sparkle 0.5s ease-in-out; /* Hiệu ứng sparkle */
         }
 
-        @keyframes sparkle {
-            0% {
-                transform: scale(1);
-                color: #ff4d4f;
-            }
+@keyframes sparkle {
+    0% {
+        transform: scale(1);
+        color: #ff4d4f;
+    }
 
-            15% {
-                transform: scale(1.2) rotate(10deg);
-                color: #ff69b4;
-            }
+    15% {
+        transform: scale(1.2) rotate(10deg);
+        color: #ff69b4;
+    }
 
-            30% {
-                transform: scale(1.5) rotate(-15deg);
-                color: #ff1493;
-            }
+    30% {
+        transform: scale(1.5) rotate(-15deg);
+        color: #ff1493;
+    }
 
-            45% {
-                transform: scale(1.3) rotate(5deg);
-                color: #ff69b4;
-            }
+    45% {
+        transform: scale(1.3) rotate(5deg);
+        color: #ff69b4;
+    }
 
     60% {
         transform: scale(
@@ -142,5 +142,30 @@
 
     .list-group-item:hover {
         background-color: #f0f0f0; /* Tạo hiệu ứng hover để dễ nhìn */
+    }
+    /* Vị trí tuyệt đối cho dấu tích */
+    .form-group {
+        position: relative; /* Đảm bảo rằng vị trí của dấu tích tính từ vị trí của form group */
+    }
+    /* Dấu tích màu xanh lá cây trong hình tròn */
+    .valid-icon {
+        display: none;
+        color: white; /* Màu của dấu tích */
+        font-size: 1.5em;
+        position: absolute;
+        right: 10px; /* Đặt dấu tích ở bên phải ngoài cùng */
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: green; /* Màu nền xanh lá cây */
+        border-radius: 50%; /* Tạo hình tròn */
+        width: 25px; /* Độ rộng của vòng tròn */
+        height: 25px; /* Độ cao của vòng tròn */
+        text-align: center; /* Căn giữa dấu tích */
+        line-height: 25px; /* Căn giữa dấu tích theo chiều dọc */
+        font-weight: bold;
+    }
+    /* Hiển thị dấu tích khi hợp lệ */
+    input.valid + .valid-icon {
+        display: inline-block;
     }
 

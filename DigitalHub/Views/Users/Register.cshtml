@@ -22,34 +22,45 @@
                 <div class="card-body">
                     @using (Html.BeginForm("Register", "Users", FormMethod.Post))
                     {
-                            if (!ViewData.ModelState.IsValid)
-                            {
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-                                        {
-                                            <li>@error.ErrorMessage</li>
-                                        }
-                                    </ul>
-                                </div>
-                            }
+                        if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                    {
+                                        <li>@error.ErrorMessage</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
 
-                        <div class="mb-3">
+                        <!-- Họ và tên -->
+                        <div class="mb-3 position-relative">
                             <label for="name" class="form-label">Họ và Tên</label>
                             <input type="text" class="form-control" id="name" name="NameCus" required>
                         </div>
-                        <div class="mb-3">
+
+                        <!-- Email -->
+                        <div class="mb-3 position-relative">
                             <label for="registerEmail" class="form-label">Email</label>
                             <input type="email" class="form-control" id="registerEmail" name="EmailCus" required>
+                            <span id="emailIcon" class="position-absolute" style="right: -25px; top: 50%; transform: translateY(-50%); display: none; font-size: 1.5rem;"></span>
                         </div>
-                        <div class="mb-3">
+
+                        <!-- Mật khẩu -->
+                        <div class="mb-3 position-relative">
                             <label for="registerPassword" class="form-label">Mật khẩu</label>
                             <input type="password" class="form-control" id="registerPassword" name="PassCus" required>
+                            <span id="passwordIcon" class="position-absolute" style="right: -25px; top: 50%; transform: translateY(-50%); display: none; font-size: 1.5rem;"></span>
                         </div>
-                        <div class="mb-3">
+
+                        <!-- Xác nhận mật khẩu -->
+                        <div class="mb-3 position-relative">
                             <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
                             <input type="password" class="form-control" id="confirmPassword" name="ConfirmPassCus" required>
+                            <span id="confirmPasswordIcon" class="position-absolute" style="right: -25px; top: 50%; transform: translateY(-50%); display: none; font-size: 1.5rem;"></span>
                         </div>
+
                         <button type="submit" class="btn btn-primary">Đăng ký</button>
                     }
                 </div>
@@ -57,3 +68,41 @@
         </div>
     </div>
 </div>
+
+<script>
+
+
+    // Kiểm tra mật khẩu mạnh
+    document.getElementById('registerPassword').addEventListener('input', function () {
+        var password = this.value;
+        var icon = document.getElementById('passwordIcon');
+        var passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
+
+        if (passwordRegex.test(password)) {
+            icon.textContent = '✅';
+            icon.style.color = 'green';
+            icon.style.display = 'inline';
+        } else {
+            icon.textContent = '❌';
+            icon.style.color = 'red';
+            icon.style.display = 'inline';
+        }
+    });
+
+    // Kiểm tra xác nhận mật khẩu
+    document.getElementById('confirmPassword').addEventListener('input', function () {
+        var password = document.getElementById('registerPassword').value;
+        var confirmPassword = this.value;
+        var icon = document.getElementById('confirmPasswordIcon');
+
+        if (password === confirmPassword && password !== '') {
+            icon.textContent = '✅';
+            icon.style.color = 'green';
+            icon.style.display = 'inline';
+        } else {
+            icon.textContent = '❌';
+            icon.style.color = 'red';
+            icon.style.display = 'inline';
+        }
+    });
+</script>

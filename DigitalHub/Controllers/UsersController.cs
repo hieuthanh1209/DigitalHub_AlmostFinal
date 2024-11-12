@@ -211,7 +211,6 @@ namespace DigitalHub.Controllers
             return View(viewedProducts);
         }
 
-        // GET: ChangePassword
         [HttpGet]
         public ActionResult ChangePassword()
         {
@@ -226,10 +225,9 @@ namespace DigitalHub.Controllers
             return View(currentCustomer);
         }
 
-        // POST: ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePassword(Customer model)
+        public ActionResult ChangePassword(string currentPassword, string newPassword, string confirmPassword)
         {
             if (!IsUserLoggedIn())
             {
@@ -240,17 +238,22 @@ namespace DigitalHub.Controllers
             var currentCustomer = (Customer)Session["TaiKhoan"];
             var customerInDb = database.Customers.Find(currentCustomer.IDCus);
 
-            // Lấy mật khẩu hiện tại, mật khẩu mới và xác nhận mật khẩu từ form
-            string currentPassword = Request.Form["CurrentPassword"];
-            string newPassword = Request.Form["NewPassword"];
-            string confirmPassword = Request.Form["ConfirmPassword"];
+            // Kiểm tra nếu thông tin khách hàng không tồn tại
+            if (customerInDb == null)
+            {
+                ModelState.AddModelError("", "Không tìm thấy thông tin khách hàng.");
+                return View(currentCustomer);
+            }
 
-            // Kiểm tra mật khẩu hiện tại có khớp không
+            // Kiểm tra mật khẩu hiện tại trong cơ sở dữ liệu
+            var CheckMK = database.Customers.FirstOrDefault(k => k.EmailCus == currentCustomer.EmailCus && k.PassCus == currentPassword);
+
+            // Kiểm tra mật khẩu hiện tại
             if (string.IsNullOrEmpty(currentPassword))
             {
                 ModelState.AddModelError("CurrentPassword", "Vui lòng nhập mật khẩu hiện tại.");
             }
-            else if (currentPassword != customerInDb.PassCus)
+            else if (CheckMK == null)
             {
                 ModelState.AddModelError("CurrentPassword", "Mật khẩu hiện tại không đúng.");
             }
@@ -265,7 +268,7 @@ namespace DigitalHub.Controllers
                 ModelState.AddModelError("NewPassword", "Mật khẩu mới không đủ mạnh. Cần ít nhất 8 ký tự, chứa chữ và số.");
             }
 
-            // Kiểm tra xác nhận mật khẩu
+            // Kiểm tra xác nhận mật khẩu mới
             if (string.IsNullOrEmpty(confirmPassword))
             {
                 ModelState.AddModelError("ConfirmPassword", "Vui lòng xác nhận mật khẩu mới.");
@@ -275,16 +278,36 @@ namespace DigitalHub.Controllers
                 ModelState.AddModelError("ConfirmPassword", "Mật khẩu mới và xác nhận mật khẩu không khớp.");
             }
 
-            if (ModelState.IsValid)
+            // Nếu có lỗi, trả lại view với thông báo lỗi
+            if (!ModelState.IsValid)
             {
-                // Cập nhật mật khẩu mới
-                customerInDb.PassCus = newPassword;
-                database.SaveChanges();
-
-                TempData["SuccessMessage"] = "Đổi mật khẩu thành công!";
-                return RedirectToAction("ChangePassword");
+                return View(customerInDb);
             }
-            return View(customerInDb);
+
+            // Nếu không có lỗi, cập nhật mật khẩu mới
+            customerInDb.PassCus = newPassword;
+            database.SaveChanges();
+
+            // Cập nhật lại session với thông tin khách hàng mới
+            Session["TaiKhoan"] = customerInDb;
+
+            TempData["SuccessMessage"] = "Đổi mật khẩu thành công!";
+            return RedirectToAction("ChangePassword");
+        }
+        [HttpPost]
+        public JsonResult CheckCurrentPassword(string password)
+        {
+            // Lấy thông tin khách hàng từ session
+            var currentCustomer = (Customer)Session["TaiKhoan"];
+            if (currentCustomer == null)
+            {
+                return Json(new { valid = false });
+            }
+
+            // Kiểm tra mật khẩu cũ
+            var customerInDb = database.Customers.FirstOrDefault(c => c.IDCus == currentCustomer.IDCus && c.PassCus == password);
+            bool isValid = customerInDb != null;
+            return Json(new { valid = isValid });
         }
     }
 }

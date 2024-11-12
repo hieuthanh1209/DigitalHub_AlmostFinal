@@ -1,6 +1,7 @@
 ﻿using DigitalHub.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,103 +11,150 @@ namespace DigitalHub.Controllers
     public class CartController : Controller
     {
         private DigitalHub_DBEntities db = new DigitalHub_DBEntities();
+
         // GET: Cart
         public ActionResult Index()
         {
-            var cart = GetCart();
-            return View(cart);
-        }
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Login", "Users");
+            }
 
-        private Product GetProductById(int productId)
-        {
-            // Giả sử bạn có một dịch vụ hoặc repository để truy xuất dữ liệu sản phẩm
-            var product = db.Products.FirstOrDefault(p => p.ProductID == productId);  // db.Products là ví dụ
-            return product;
+            var cart = GetCart(); // Lấy giỏ hàng từ cơ sở dữ liệu
+            return View(cart);
         }
 
         [HttpPost]
         public ActionResult AddToCart(int productId, int quantity)
         {
-            var cart = GetCart();
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Login", "Users");
+            }
+
+            var currentCustomer = (Customer)Session["TaiKhoan"];
             var product = db.Products.FirstOrDefault(p => p.ProductID == productId);
 
             if (product != null)
             {
-                var existingItem = cart.Items.FirstOrDefault(i => i.ProductId == productId);
+                // Kiểm tra sản phẩm trong ShoppingCartHistory của khách hàng hiện tại
+                var cartHistory = db.ShoppingCartHistories
+                                    .FirstOrDefault(sc => sc.CustomerID == currentCustomer.IDCus && sc.ProductID == productId);
 
-                if (existingItem == null)
+                if (cartHistory == null)
                 {
-                    // Thêm sản phẩm mới vào giỏ hàng
-                    cart.Items.Add(new CartItem
+                    // Thêm sản phẩm mới vào ShoppingCartHistory
+                    cartHistory = new ShoppingCartHistory
                     {
-                        ProductId = product.ProductID,
-                        ProductName = product.NamePro,
-                        Price = product.DiscountPrice ?? 0m,
+                        CustomerID = currentCustomer.IDCus,
+                        ProductID = product.ProductID,
                         Quantity = quantity,
-                        Image = product.ImagePro
-                    });
+                        DateAdded = DateTime.Now
+                    };
+                    db.ShoppingCartHistories.Add(cartHistory);
                 }
                 else
                 {
-                    // Nếu sản phẩm đã có trong giỏ, chỉ cần tăng số lượng
-                    existingItem.Quantity += quantity;
+                    // Nếu sản phẩm đã có, tăng số lượng
+                    cartHistory.Quantity += quantity;
                 }
-            }
-            cart.UpdateTotal();
 
-            // Tính tổng tạm tính và tổng cộng
+                db.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu
+            }
+
+            var cart = GetCart();
             decimal subtotalAmount = cart.Items.Sum(i => i.Price * i.Quantity);
-            decimal totalAmount = subtotalAmount; // Giả sử không có phí vận chuyển
+            decimal totalAmount = subtotalAmount;
 
             return Json(new { success = true, subtotalAmount = subtotalAmount, totalAmount = totalAmount, cartCount = cart.Items.Sum(i => i.Quantity) });
         }
 
+        [HttpPost]
+        public ActionResult RemoveFromCart(int productId)
+        {
+            var currentCustomer = (Customer)Session["TaiKhoan"];
 
+            // Tìm và xóa sản phẩm trong ShoppingCartHistory
+            var cartHistory = db.ShoppingCartHistories
+                                .FirstOrDefault(sc => sc.CustomerID == currentCustomer.IDCus && sc.ProductID == productId);
+
+            if (cartHistory != null)
+            {
+                db.ShoppingCartHistories.Remove(cartHistory);
+                db.SaveChanges();
+
+                var cart = GetCart();
+                return Json(new { success = true, subtotalAmount = cart.Total, totalAmount = cart.Total, cartCount = cart.Items.Sum(i => i.Quantity) });
+            }
+
+            return Json(new { success = false });
+        }
 
         [HttpPost]
         public ActionResult UpdateQuantity(int productId, int quantity)
         {
-            var cart = GetCart();
-            var item = cart.Items.FirstOrDefault(i => i.ProductId == productId);
+            var currentCustomer = (Customer)Session["TaiKhoan"];
 
-            if (item != null && quantity > 0)
+            var cartHistory = db.ShoppingCartHistories
+                                .FirstOrDefault(sc => sc.CustomerID == currentCustomer.IDCus && sc.ProductID == productId);
+
+            if (cartHistory != null)
             {
-                item.Quantity = quantity;
-                cart.UpdateTotal(); // Cập nhật tổng giỏ hàng
+                cartHistory.Quantity = quantity;
+                db.SaveChanges();
 
-                // Tính toán và trả về subtotal và totalAmount
-                decimal subtotalAmount = cart.Items.Sum(i => i.Price * i.Quantity);
-                return Json(new { success = true, subtotalAmount = subtotalAmount, totalAmount = cart.Total });
+                var cart = GetCart();
+                return Json(new { success = true, subtotalAmount = cart.Total, totalAmount = cart.Total, cartCount = cart.Items.Sum(i => i.Quantity) });
             }
 
             return Json(new { success = false });
         }
 
-
-        [HttpPost]
-        public ActionResult RemoveFromCart(int productId)
+        private bool IsUserLoggedIn()
         {
-            var cart = GetCart();
-            var item = cart.Items.FirstOrDefault(i => i.ProductId == productId);
-
-            if (item != null)
-            {
-                cart.Items.Remove(item); // Remove the item from the cart
-                return Json(new { success = true });
-            }
-
-            return Json(new { success = false });
+            return Session["TaiKhoan"] != null;
         }
-
 
         private Cart GetCart()
         {
-            Cart cart = Session["Cart"] as Cart;
-            if (cart == null)
+            var currentCustomer = (Customer)Session["TaiKhoan"];
+
+            if (currentCustomer == null)
             {
-                cart = new Cart();
-                Session["Cart"] = cart;
+                return new Cart();
             }
+
+            var cartItems = db.ShoppingCartHistories
+                              .Where(sc => sc.CustomerID == currentCustomer.IDCus)
+                              .Select(sc => new CartItem
+                              {
+                                  ProductId = sc.ProductID,
+                                  ProductName = db.Products
+                                                 .Where(p => p.ProductID == sc.ProductID)
+                                                 .Select(p => p.NamePro)
+                                                 .FirstOrDefault(), // Truy vấn riêng để lấy tên sản phẩm
+                                  Image = db.Products
+                                            .Where(p => p.ProductID == sc.ProductID)
+                                            .Select(p => p.ImagePro)
+                                            .FirstOrDefault(), // Truy vấn riêng để lấy hình ảnh sản phẩm
+                                  Price = db.Products
+                                            .Where(p => p.ProductID == sc.ProductID)
+                                            .Select(p => p.DiscountPrice)
+                                            .FirstOrDefault() ?? 0m, // Truy vấn riêng để lấy giá, nếu null gán giá mặc định
+                                  Quantity = sc.Quantity,
+                                  Category = db.Products
+                                               .Where(p => p.ProductID == sc.ProductID)
+                                               .Select(p => p.Category)
+                                               .FirstOrDefault() // Truy vấn riêng để lấy danh mục sản phẩm
+                              })
+                              .ToList();
+
+            var cart = new Cart
+            {
+                Items = cartItems
+            };
+
+            cart.UpdateTotal();
             return cart;
         }
     }

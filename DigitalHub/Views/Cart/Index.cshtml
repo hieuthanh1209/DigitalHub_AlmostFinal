@@ -1,6 +1,6 @@
 ﻿﻿@model DigitalHub.Models.Cart
 @{
-    ViewBag.Title = "Giỏ hàng";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
 
@@ -18,7 +18,7 @@
                         {
                             <div class="row mb-4 border-bottom pb-4">
                                 <div class="col-md-3">
-                                    <img src="~/Images/@item.Category/@item.Image" class="img-fluid rounded" alt="@item.ProductName">
+                                    <img src="~/Images//@item.Image" class="img-fluid rounded" alt="@item.ProductName">
                                 </div>
                                 <div class="col-md-9">
                                     <div class="d-flex justify-content-between align-items-start">
@@ -87,7 +87,6 @@
         </div>
     }
 </div>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function removeItemFromCart(productId) {
@@ -95,10 +94,15 @@
             $.ajax({
                 url: '/Cart/RemoveFromCart',
                 type: 'POST',
-                data: { productId },
+                data: { productId: productId },
                 success: function (response) {
-                    console.log(response);
                     if (response.success) {
+                        // Cập nhật tổng tiền và số lượng sau khi xóa sản phẩm
+                        $('#subtotalAmount').text(response.subtotalAmount.toLocaleString("en-US") + " ₫");
+                        $('#totalAmount').text(response.totalAmount.toLocaleString("en-US") + " ₫");
+                        $('#cartCount').text(response.cartCount); // Cập nhật số lượng sản phẩm
+                        // Xóa sản phẩm khỏi giao diện
+                        console.log(response);
                         location.reload();
                     }
                 },
@@ -110,17 +114,17 @@
     }
 
     function adjustQuantity(productId, change) {
-        let input = $(`#quantity_${productId}`);
+        let input = $(`#quantity_${productId}`); // Sửa lại cách sử dụng template literal
         let currentQuantity = parseInt(input.val());
 
-        // Calculate the new quantity, ensuring it stays above 0
+        // Tính toán số lượng mới, đảm bảo không dưới 1
         let newQuantity = currentQuantity + change;
         if (newQuantity < 1) {
             alert('Số lượng phải lớn hơn 0');
             return;
         }
 
-        // Update the input field's value and trigger the quantity update
+        // Cập nhật giá trị trong ô nhập liệu và gọi hàm cập nhật
         input.val(newQuantity);
         updateQuantity(productId, newQuantity);
     }
@@ -135,9 +139,10 @@
             },
             success: function (response) {
                 if (response.success) {
-                    // Update the subtotal and total amount displayed without a page reload
+                    // Cập nhật lại tổng tiền và số lượng trong giỏ hàng mà không cần reload trang
                     $('#subtotalAmount').text(response.subtotalAmount.toLocaleString("en-US") + " ₫");
                     $('#totalAmount').text(response.totalAmount.toLocaleString("en-US") + " ₫");
+                    $('#cartCount').text(response.cartCount); // Cập nhật số lượng sản phẩm
                 } else {
                     alert('Cập nhật số lượng thất bại');
                 }
@@ -147,6 +152,4 @@
             }
         });
     }
-
-
 </script>
