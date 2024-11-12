@@ -1,0 +1,44 @@
+﻿@model DigitalHub.Models.OrderPro
+
+@{
+    ViewBag.Title = "Order Confirmation";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<div class="container my-5">
+    <h2 class="mb-4">Order Confirmation</h2>
+    <p>Thank you for your purchase! Your order has been successfully placed.</p>
+
+    <h4>Order Details</h4>
+    <p>Customer Name: @(Model.Customer != null ? Model.Customer.NameCus : "N/A")</p>
+    <p><strong>Order ID:</strong> @Model.ID</p>
+    <p><strong>Date:</strong> @(Model.DateOrder.HasValue ? Model.DateOrder.Value.ToString("dd/MM/yyyy") : "N/A")</p>
+    <p><strong>Delivery Address:</strong> @Model.AddressDeliverry</p>
+
+    <h4>Products Ordered:</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderDetails)
+            {
+                <tr>
+                    <td>@(item.Product != null ? item.Product.NamePro : "N/A")</td>
+                    <td>@item.Quantity</td>
+                    <td>@(item.UnitPrice?.ToString("N0") ?? "0") ₫</td>
+                    <td>@(item.UnitPrice.HasValue ? item.UnitPrice.Value.ToString("N0") : "0") ₫</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Total Amount: <strong>@Model.OrderDetails.Sum(d => d.Quantity * (d.UnitPrice ?? 0)).Value.ToString("N0") ₫</strong></h4>
+
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Continue Shopping</a>
+</div>

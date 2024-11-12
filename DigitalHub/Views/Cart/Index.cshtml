@@ -61,7 +61,12 @@
                             <span class="fw-bold">Tổng cộng</span>
                             <span id="totalAmount" class="fw-bold text-primary">@Model.Total.ToString("N0") ₫</span>
                         </div>
-                        <button class="btn btn-primary w-100 mb-2">Tiến hành thanh toán</button>
+                        <form action="@Url.Action("Index", "Checkout")" method="post">
+                            <button type="submit" class="btn btn-primary w-100 mb-2">Tiến hành thanh toán</button>
+                        </form>
+
+                        <!-- <button class="btn btn-primary w-100 mb-2">Tiến hành thanh toán</button> -->
+
                         <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary w-100">
                             Tiếp tục mua sắm
                         </a>
