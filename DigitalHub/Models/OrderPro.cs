@@ -24,6 +24,7 @@ namespace DigitalHub.Models
         public Nullable<System.DateTime> DateOrder { get; set; }
         public Nullable<int> IDCus { get; set; }
         public string AddressDeliverry { get; set; }
+        public bool IsPaid { get; set; }
     
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

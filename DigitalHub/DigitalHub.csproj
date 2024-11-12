@@ -130,7 +130,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvoiceManagerController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -224,6 +226,7 @@
     <Content Include="Icons\user-alt-1-svgrepo-com.svg" />
     <Content Include="Icons\X_logo_2023_original.svg" />
     <Content Include="Icons\yYkB7z_qrcode.svg" />
+    <Content Include="Images\bg.jpg" />
     <Content Include="Images\Laptop\HP-Victus16.png" />
     <Content Include="Images\Laptop\Lenovo-LOQ-15IRX.png" />
     <Content Include="Images\Laptop\Lenovo-ThinkBook-14G7.png" />
@@ -2159,6 +2162,10 @@
     <Content Include="Scripts\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Scripts\vendor\jquery\jquery.min.map" />
     <Content Include="Scripts\vendor\jquery\jquery.slim.min.map" />
+    <Content Include="Views\Checkout\Index.cshtml" />
+    <Content Include="Views\Checkout\OrderConfirmation.cshtml" />
+    <Content Include="Views\InvoiceManager\Orders.cshtml" />
+    <Content Include="Views\InvoiceManager\OrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

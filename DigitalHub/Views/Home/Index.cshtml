@@ -14,13 +14,19 @@
         <div class="col-12 position-relative">
             <div id="productSlider" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    @for (int i = 0; i < Model.Count(); i += 5)
+                    @{
+                        // Giả sử bạn có một danh sách chứa index hoặc ID của các sản phẩm bạn muốn hiển thị
+                        var selectedIndexes = new List<int> { 0, 1, 2, 4, 6, 10, 11, 28, 29, 36 }; // Các index của sản phẩm bạn muốn lấy
+                        var products = selectedIndexes.Select(index => Model.ElementAt(index)).ToList(); // Lấy 10 sản phẩm theo các index trên
+                    }
+
+                    @for (int i = 0; i < products.Count; i += 5)
                     {
                         <div class="carousel-item @(i == 0 ? "active" : "")">
                             <div class="row justify-content-center">
-                                @for (int j = i; j < i + 5 && j < Model.Count(); j++)
+                                @for (int j = i; j < i + 5 && j < products.Count; j++)
                                 {
-                                    var product = Model.ElementAt(j);
+                                    var product = products[j];
 
                                     <div class="col-6 col-md-4 col-lg-2">
                                         <div class="card h-100 position-relative">

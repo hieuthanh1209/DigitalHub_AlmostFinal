@@ -53,6 +53,7 @@
           <Property Name="DateOrder" Type="date" />
           <Property Name="IDCus" Type="int" />
           <Property Name="AddressDeliverry" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsPaid" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -284,6 +285,7 @@
           <Property Name="AddressDeliverry" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Customer" Relationship="Self.FK__OrderPro__IDCus__403A8C7D" FromRole="OrderPro" ToRole="Customer" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__IDOrd__440B1D61" FromRole="OrderPro" ToRole="OrderDetail" />
+          <Property Name="IsPaid" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -516,6 +518,7 @@
           <EntitySetMapping Name="OrderProes">
             <EntityTypeMapping TypeName="DigitalHub_DBModel.OrderPro">
               <MappingFragment StoreEntitySet="OrderPro">
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="DateOrder" ColumnName="DateOrder" />
                 <ScalarProperty Name="IDCus" ColumnName="IDCus" />
