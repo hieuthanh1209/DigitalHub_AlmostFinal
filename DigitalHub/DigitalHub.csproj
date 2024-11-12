@@ -205,6 +205,7 @@
     <Content Include="Content\Home_Laptop.css" />
     <Content Include="Content\Home_LinhKien.css" />
     <Content Include="Content\Home_TaiNghe.css" />
+    <Content Include="Content\MasterLayout.css" />
     <Content Include="Content\mystyle.css" />
     <Content Include="Content\MediaQuery.css" />
     <Content Include="Content\Slider.css" />

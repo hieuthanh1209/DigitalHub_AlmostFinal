@@ -43,3 +43,22 @@
         right: 5px;
     }
 }
+
+/*Index*/
+/* Cải thiện Responsive Design */
+@media (max-width: 576px) {
+    .card {
+        transform: none; /* Loại bỏ hiệu ứng zoom trên màn hình nhỏ */
+    }
+
+    .col-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .wishlist-icon {
+        bottom: 5px;
+        right: 5px;
+        font-size: 1.2rem;
+    }
+}
