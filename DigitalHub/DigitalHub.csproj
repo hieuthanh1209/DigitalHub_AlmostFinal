@@ -224,6 +224,7 @@
     <Content Include="Icons\user-alt-1-svgrepo-com.svg" />
     <Content Include="Icons\X_logo_2023_original.svg" />
     <Content Include="Icons\yYkB7z_qrcode.svg" />
+    <Content Include="Images\bg.jpg" />
     <Content Include="Images\Laptop\HP-Victus16.png" />
     <Content Include="Images\Laptop\Lenovo-LOQ-15IRX.png" />
     <Content Include="Images\Laptop\Lenovo-ThinkBook-14G7.png" />
