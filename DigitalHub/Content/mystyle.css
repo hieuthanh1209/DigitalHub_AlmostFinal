@@ -166,3 +166,33 @@
 
     60% {
         transform: scale(
+    }
+    /* mystyle.css hoặc thêm trực tiếp vào thẻ <style> trong <head> */
+    .navbar-search {
+        position: relative; /* Đảm bảo phần tử cha có position: relative để phần tử con căn chỉnh chính xác */
+    }
+
+    #searchResults {
+        max-height: 300px; /* Giới hạn chiều cao, giả sử mỗi kết quả chiếm khoảng 40-50px chiều cao */
+        overflow-y: auto; /* Cho phép cuộn khi vượt quá chiều cao tối đa */
+        background-color: #ffffff; /* Màu nền để dễ nhìn thấy */
+        border: 1px solid #ddd; /* Đường viền để phân biệt phần kết quả */
+        position: absolute;
+        top: calc(100% + 5px); /* Hiển thị ngay dưới thanh tìm kiếm, cách một khoảng nhỏ */
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        border-radius: 0 0 0.25rem 0.25rem; /* Bo tròn cạnh dưới để trông đẹp hơn */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tạo bóng đổ cho phần tìm kiếm nổi bật hơn */
+        padding-top: 5px; /* Tạo khoảng cách giữa kết quả và viền */
+    }
+
+    .list-group-item {
+        cursor: pointer;
+        padding: 10px 15px;
+    }
+
+    .list-group-item:hover {
+        background-color: #f0f0f0; /* Tạo hiệu ứng hover để dễ nhìn */
+    }
+

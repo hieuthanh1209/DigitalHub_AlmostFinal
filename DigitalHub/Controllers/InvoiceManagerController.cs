@@ -78,5 +78,26 @@ namespace DigitalHub.Controllers
 
             return RedirectToAction("OrderDetails", new { id = id }); // Redirect to the Order Details page
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UndoPayment(int id)
+        {
+            // Sử dụng db thay vì _context
+            var order = db.OrderProes.FirstOrDefault(o => o.ID == id);
+            if (order != null)
+            {
+                order.IsPaid = false; // Đánh dấu đơn hàng là chưa thanh toán
+                db.SaveChanges(); // Lưu lại trạng thái "Chưa thanh toán"
+
+                TempData["SuccessMessage"] = "Order payment has been undone successfully.";
+            }
+            else
+            {
+                return HttpNotFound(); // Nếu không tìm thấy đơn hàng
+            }
+
+            return RedirectToAction("OrderDetails", new { id = id }); // Quay lại trang chi tiết đơn hàng
+        }
     }
 }

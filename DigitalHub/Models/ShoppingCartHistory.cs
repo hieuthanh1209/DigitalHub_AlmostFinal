@@ -12,11 +12,10 @@ namespace DigitalHub.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ShoppingCart
+    public partial class ShoppingCartHistory
     {
         public int ID { get; set; }
-        public string SessionID { get; set; }
-        public Nullable<int> CustomerID { get; set; }
+        public int CustomerID { get; set; }
         public int ProductID { get; set; }
         public int Quantity { get; set; }
         public System.DateTime DateAdded { get; set; }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,6 +12,7 @@ namespace DigitalHub.Controllers
 {
     public class CheckoutController : Controller
     {
+        private static readonly System.Diagnostics.TraceSource logger = new System.Diagnostics.TraceSource("DigitalHubTraceSource");
         private DigitalHub_DBEntities db = new DigitalHub_DBEntities();
 
         // GET: Checkout (for displaying checkout form)
@@ -41,7 +44,7 @@ namespace DigitalHub.Controllers
             if (customer == null)
             {
                 // Handle the case where customer is not found in session
-                return RedirectToAction("Index", "Home"); // Or show an error page
+                return RedirectToAction("Login", "Users"); // Or show an error page
             }
 
             // Create a new order
@@ -80,7 +83,7 @@ namespace DigitalHub.Controllers
             if (id == null)
             {
                 // Handle the case where id is null
-                return RedirectToAction("Index", "Home"); // Or show an error page
+                return RedirectToAction("Login", "Users"); // Or show an error page
             }
 
             var order = db.OrderProes
@@ -94,6 +97,40 @@ namespace DigitalHub.Controllers
             }
 
             return View(order);
+        }
+
+        [HttpPost]
+        public ActionResult SelectPaymentMethod(int id, string paymentMethod)
+        {
+            // Find the order by ID
+            var order = db.OrderProes.Find(id); // Use "db" instead of "dbContext"
+            if (order != null && order.OrderDetails != null && order.OrderDetails.Any())
+            {
+                // Assuming the payment method is assigned to the first item in OrderDetails
+                order.OrderDetails.First().PaymentMethod = paymentMethod; // Use "First()" instead of [0] for better safety
+
+                // Save changes
+                db.SaveChanges(); // Use "db" instead of "dbContext"
+            }
+
+            // Redirect to a confirmation page or appropriate action
+            return RedirectToAction("PaymentConfirmation", new { id });
+        }
+
+        public ActionResult PaymentConfirmation(int id)
+        {
+            // You can look up the order based on the ID for display purposes
+            var order = db.OrderProes
+                          .Include("Customer")
+                          .Include("OrderDetails")
+                          .FirstOrDefault(o => o.ID == id);
+
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(order); // You can create a "PaymentConfirmation" view to show the details.
         }
 
 
