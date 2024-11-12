@@ -39,70 +39,17 @@
     position: relative; /* Đảm bảo thẻ .card là phần tử tương đối để định vị biểu tượng wishlist */
 }
 
-#tai-nghe-section .wishlist-icon {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    color: #ccc; /* Màu trái tim mặc định */
-    font-size: 1.5rem; /* Điều chỉnh kích thước biểu tượng */
-    cursor: pointer;
-    transition: color 0.3s ease, transform 0.3s ease; /* Hiệu ứng chuyển màu và phóng to */
-}
-
-    #tai-nghe-section .wishlist-icon.active {
-        color: #ff4d4f; /* Màu đỏ khi được chọn */
-    }
-
-    #tai-nghe-section .wishlist-icon.clicked {
-        animation: sparkle 0.5s ease-in-out; /* Hiệu ứng sparkle */
-    }
-
-@keyframes sparkle {
-    0% {
-        transform: scale(1);
-        color: #ff4d4f;
-    }
-
-    15% {
-        transform: scale(1.2) rotate(10deg);
-        color: #ff69b4;
-    }
-
-    30% {
-        transform: scale(1.5) rotate(-15deg);
-        color: #ff1493;
-    }
-
-    45% {
-        transform: scale(1.3) rotate(5deg);
-        color: #ff69b4;
-    }
-
-    60% {
-        transform: scale(1.4) rotate(-10deg);
-        color: #ff4d4f;
-    }
-
-    100% {
-        transform: scale(1);
-        color: #ff4d4f;
-    }
-}
-
 /* Ảnh sản phẩm */
 #tai-nghe-section .image-container {
     width: 100%;
     height: 200px; /* Chiều cao cố định của khung hình */
     background-color: #fff; /* Màu nền mặc định khi không có ảnh */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+   
     overflow: hidden;
     border-bottom: 1px solid #ddd; /* Viền cho khung hình, tùy chọn */
 }
 
     #tai-nghe-section .image-container img {
-        width: auto;
         height: 100%;
         object-fit: contain; /* Giữ tỉ lệ ảnh trong khung hình */
     }

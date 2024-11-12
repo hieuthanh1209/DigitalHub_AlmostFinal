@@ -6,83 +6,80 @@
 }
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-<link href="~/Content/mystyle.css" rel="stylesheet" />
 
 <!-- Slider Section -->
-<div id="slider-section" class="container py-2 pt-5 bg-info rounded-3" style="width: 90%;">
-    <div class="row">
-        <div class="col-12 position-relative">
-            <div id="productSlider" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @{
-                        // Giả sử bạn có một danh sách chứa index hoặc ID của các sản phẩm bạn muốn hiển thị
-                        var selectedIndexes = new List<int> { 0, 1, 2, 4, 6, 10, 11, 28, 29, 36 }; // Các index của sản phẩm bạn muốn lấy
-                        var products = selectedIndexes.Select(index => Model.ElementAt(index)).ToList(); // Lấy 10 sản phẩm theo các index trên
-                    }
+<div id="slider-section" class="container slider-custom" style="width: 90%;">
+    <div class="row-12 position-relative">
+        <div id="productSlider" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @{
+                    // Giả sử bạn có một danh sách chứa index hoặc ID của các sản phẩm bạn muốn hiển thị
+                    var selectedIndexes = new List<int> { 0, 1, 2, 4, 6, 10, 11, 28, 29, 36 }; // Các index của sản phẩm bạn muốn lấy
+                    var products = selectedIndexes.Select(index => Model.ElementAt(index)).ToList(); // Lấy 10 sản phẩm theo các index trên
+                }
 
-                    @for (int i = 0; i < products.Count; i += 5)
-                    {
-                        <div class="carousel-item @(i == 0 ? "active" : "")">
-                            <div class="row justify-content-center">
-                                @for (int j = i; j < i + 5 && j < products.Count; j++)
-                                {
-                                    var product = products[j];
+                @for (int i = 0; i < products.Count; i += 5)
+                {
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <div class="row justify-content-center">
+                            @for (int j = i; j < i + 5 && j < products.Count; j++)
+                            {
+                                var product = products[j];
 
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card h-100 position-relative">
-                                            @if (product.DiscountPrice.HasValue && product.Price.HasValue && product.DiscountPrice < product.Price)
-                                            {
-                                                var discount = Math.Round(((product.Price.Value - product.DiscountPrice.Value) / product.Price.Value * 100), 0);
-                                                <div class="discount-badge">-@discount%</div>
-                                            }
+                                <div class="col-6 col-md-4 col-lg-2">
+                                    <div class="card h-100 position-relative">
+                                        @if (product.DiscountPrice.HasValue && product.Price.HasValue && product.DiscountPrice < product.Price)
+                                        {
+                                            var discount = Math.Round(((product.Price.Value - product.DiscountPrice.Value) / product.Price.Value * 100), 0);
+                                            <div class="discount-badge">-@discount%</div>
+                                        }
 
-                                            <div class="custom-label">Trả góp 0%</div>
+                                        <div class="custom-label">Trả góp 0%</div>
 
-                                            <!-- Wishlist Icon -->
-                                            <div class="wishlist-icon" onclick="toggleWishlist(event, this)">
-                                                <i class="fas fa-heart"></i>
-                                            </div>
-
-                                            <!-- Product Image -->
-                                            <div class="image-container">
-                                                <a href="@Url.Action("Details", "Home", new { id = product.ProductID })">
-                                                    <img class="card-img-top" src="~/Images/@product.Category1.NameCate/@product.ImagePro" alt="Product Image">
-                                                </a>
-                                            </div>
-
-                                            <!-- Card Body -->
-                                            <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
-                                                <a href="@Url.Action("Details", "Home", new { id = product.ProductID })" class="text-decoration-none">
-                                                    <p class="card-title text-dark text-decoration-none">
-                                                        @(product.NamePro.Length > 30 ? product.NamePro.Substring(0, 30) + "..." : product.NamePro)
-                                                    </p>
-                                                </a>
-
-                                                <div class="mb-2">
-                                                    <p class="discount_price text-danger fw-bold mb-0">@String.Format("{0:N0}", product.DiscountPrice).Replace(",", ".")đ</p>
-                                                    <p class="old-price text-muted text-decoration-line-through mb-0">@String.Format("{0:N0}", product.Price).Replace(",", ".")đ</p>
-                                                </div>
-
-                                                <p class="rating text-warning mb-0 d-flex align-items-center">
-                                                    <span id="ratingValue-@product.NamePro" style="color: #ee4d2d"></span> <i class="fas fa-star"></i>
-                                                </p>
-                                            </div>
+                                        <!-- Wishlist Icon -->
+                                        <div class="wishlist-icon" onclick="toggleWishlist(event, this)">
+                                            <i class="fas fa-heart"></i>
                                         </div>
-                                    </div> <!-- End col- -->
-                                }
-                            </div> <!-- End row -->
-                        </div> <!-- End carousel-item -->
-                    }
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#productSlider" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#productSlider" data-bs-slide="next">
-                    <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+
+                                        <!-- Product Image -->
+                                        <div class="image-container">
+                                            <a href="@Url.Action("Details", "Home", new { id = product.ProductID })">
+                                                <img class="card-img-top" src="~/Images/@product.Category1.NameCate/@product.ImagePro" alt="Product Image">
+                                            </a>
+                                        </div>
+
+                                        <!-- Card Body -->
+                                        <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
+                                            <a href="@Url.Action("Details", "Home", new { id = product.ProductID })" class="text-decoration-none">
+                                                <p class="card-title text-dark text-decoration-none">
+                                                    @(product.NamePro.Length > 30 ? product.NamePro.Substring(0, 30) + "..." : product.NamePro)
+                                                </p>
+                                            </a>
+
+                                            <div class="mb-2">
+                                                <p class="discount_price text-danger fw-bold mb-0">@String.Format("{0:N0}", product.DiscountPrice).Replace(",", ".")đ</p>
+                                                <p class="old-price text-muted text-decoration-line-through mb-0">@String.Format("{0:N0}", product.Price).Replace(",", ".")đ</p>
+                                            </div>
+
+                                            <p class="rating text-warning mb-0 d-flex align-items-center">
+                                                <span id="ratingValue-@product.NamePro" style="color: #ee4d2d"></span> <i class="fas fa-star"></i>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div> <!-- End col- -->
+                            }
+                        </div> <!-- End row -->
+                    </div> <!-- End carousel-item -->
+                }
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#productSlider" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productSlider" data-bs-slide="next">
+                <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </div>
 </div>
@@ -94,7 +91,7 @@
     <div class="row">
         @foreach (var item in Model)
         {
-            <div class="col-6 col-md-4 col-lg-2 mb-4" id="product-card-@item.ProductID">
+            <div class="col-6 col-md-4 col-lg-3 mb-4" id="product-card-@item.ProductID">
                 <div class="card h-100 shadow-sm position-relative">
                     @if (item.DiscountPrice.HasValue && item.Price.HasValue && item.DiscountPrice < item.Price)
                     {
@@ -120,7 +117,7 @@
                     <div class="card-body d-flex flex-column">
                         <a href="@Url.Action("Details", "Home", new { id = item.ProductID })" class="text-decoration-none">
                             <p class="card-title text-dark text-decoration-none">
-                                @(item.NamePro.Length > 35 ? item.NamePro.Substring(0, 35) + "..." : item.NamePro)
+                                @(item.NamePro.Length > 35 ? item.NamePro.Substring(0, 30) + "..." : item.NamePro)
                             </p>
                         </a>
 
@@ -153,10 +150,12 @@
         }, 500); // Thời gian khớp với thời gian hiệu ứng sparkle
     }
 
+    
 
     window.onload = function () {
         generateRandomRatings();
     };
+
     function generateRandomRatings() {
         const ratingElements = document.querySelectorAll('[id^="ratingValue-"]');
         ratingElements.forEach(element => {
@@ -164,4 +163,15 @@
             element.textContent = rating;
         });
     }
+
+    // Debounce function to improve performance
+    function debounce(func, wait) {
+        let timeout;
+        return function (...args) {
+            const context = this;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(context, args), wait);
+        };
+    }
+
 </script>

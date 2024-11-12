@@ -43,6 +43,7 @@
 
                         <!-- Card Body -->
                         <div class="card-body d-flex flex-column">
+                            <!-- Card Title -->
                             <a href="@Url.Action("Details", "Home", new { id = item.ProductID })" class="text-decoration-none">
                                 <p class="card-title text-dark text-decoration-none">
                                     @(item.NamePro.Length > 40 ? item.NamePro.Substring(0, 40) + "..." : item.NamePro)
