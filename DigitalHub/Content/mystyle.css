@@ -1,13 +1,10 @@
 ﻿
 /*Phần chung - common*/
-        .card:hover {
-            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.2), 0 0 30px rgba(0, 123, 255, 0.4) !important;
-        }
-
-        .card:hover {
-            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3), 0 0 30px rgba(0, 123, 255, 0.5);
-            transform: scale(1.01);
-        }
+.card:hover {
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.3), 0 0 20px rgba(0, 123, 255, 0.4) !important;
+    transform: translateX(2px) scale(1.03) !important;
+    transition: transform 0.1s ease-in-out, box-shadow 0.2s ease;
+}
 
 
         .card-title {

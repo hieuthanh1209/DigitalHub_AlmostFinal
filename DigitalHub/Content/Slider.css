@@ -38,6 +38,10 @@
     background-color: #fff;
     overflow: hidden;
     border-bottom: 1px solid #ddd;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Ảnh sản phẩm */
@@ -59,3 +63,5 @@
     overflow: hidden;
     display: flex;
 }
+
+
