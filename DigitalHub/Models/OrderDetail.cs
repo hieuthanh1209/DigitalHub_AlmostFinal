@@ -19,6 +19,7 @@ namespace DigitalHub.Models
         public Nullable<int> IDOrder { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<decimal> UnitPrice { get; set; }
+        public string PaymentMethod { get; set; }
     
         public virtual OrderPro OrderPro { get; set; }
         public virtual Product Product { get; set; }

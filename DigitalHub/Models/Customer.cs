@@ -19,7 +19,7 @@ namespace DigitalHub.Models
         {
             this.OrderProes = new HashSet<OrderPro>();
             this.ProductViewHistories = new HashSet<ProductViewHistory>();
-            this.ShoppingCarts = new HashSet<ShoppingCart>();
+            this.ShoppingCartHistories = new HashSet<ShoppingCartHistory>();
         }
     
         public int IDCus { get; set; }
@@ -28,14 +28,14 @@ namespace DigitalHub.Models
         public string EmailCus { get; set; }
         public string PassCus { get; set; }
         public string AddressCus { get; set; }
-        public Nullable<bool> Gender { get; set; }
         public Nullable<System.DateTime> BirthDate { get; set; }
+        public Nullable<bool> Gender { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderPro> OrderProes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductViewHistory> ProductViewHistories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
+        public virtual ICollection<ShoppingCartHistory> ShoppingCartHistories { get; set; }
     }
 }
