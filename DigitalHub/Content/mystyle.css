@@ -18,13 +18,8 @@
         }
 
         .price,
-        .old-price,
-        .rating {
+        .old-price{
             margin: 0;
-        }
-
-        .rating {
-            margin-top: 10px;
         }
 
         /*Phần trăm giảm giá*/

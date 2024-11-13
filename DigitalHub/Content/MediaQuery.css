@@ -7,14 +7,14 @@
 }
 
 /* CSS chỉ áp dụng cho màn hình nhỏ */
-@media (max-width: 767px) {
+@media (max-width: 990px) {
     #nav-expand {
         width: 100%;
     }
 }
 
 /* CSS chỉ áp dụng cho màn hình tablet */
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 990px) and (max-width: 1024px) {
     .navbar-nav {
         white-space: nowrap;
     }
