@@ -315,5 +315,68 @@ namespace DigitalHub.Controllers
             bool isValid = customerInDb != null;
             return Json(new { valid = isValid });
         }
+        public ActionResult AddToWishlist(int productId)
+        {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Login");
+            }
+
+            var currentCustomer = (Customer)Session["TaiKhoan"];
+            var existingItem = database.Wishlists.FirstOrDefault(w => w.CustomerID == currentCustomer.IDCus && w.ProductID == productId);
+
+            if (existingItem == null)
+            {
+                var wishlistItem = new Wishlist
+                {
+                    CustomerID = currentCustomer.IDCus,
+                    ProductID = productId
+                };
+
+                database.Wishlists.Add(wishlistItem);
+                database.SaveChanges();
+                TempData["SuccessMessage"] = "Sản phẩm đã được thêm vào danh sách yêu thích.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Sản phẩm này đã có trong danh sách yêu thích của bạn.";
+            }
+
+            return RedirectToAction("Wishlist");
+        }
+        public ActionResult RemoveFromWishlist(int productId)
+        {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Login");
+            }
+
+            var currentCustomer = (Customer)Session["TaiKhoan"];
+            var wishlistItem = database.Wishlists.FirstOrDefault(w => w.CustomerID == currentCustomer.IDCus && w.ProductID == productId);
+
+            if (wishlistItem != null)
+            {
+                database.Wishlists.Remove(wishlistItem);
+                database.SaveChanges();
+                TempData["SuccessMessage"] = "Sản phẩm đã được xóa khỏi danh sách yêu thích.";
+            }
+
+            return RedirectToAction("Wishlist");
+        }
+        public ActionResult Wishlist()
+        {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Login");
+            }
+
+            var currentCustomer = (Customer)Session["TaiKhoan"];
+            var wishlist = database.Wishlists
+                .Where(w => w.CustomerID == currentCustomer.IDCus)
+                .Include(w => w.Product)
+                .ToList();
+
+            return View(wishlist);
+        }
     }
 }

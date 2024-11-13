@@ -231,16 +231,19 @@
     <Content Include="Icons\user-alt-1-svgrepo-com.svg" />
     <Content Include="Icons\X_logo_2023_original.svg" />
     <Content Include="Icons\yYkB7z_qrcode.svg" />
-    <Content Include="Images\bg.jpg" />
+    <Content Include="Images\anh-nen-caro-mau-xanh background.png" />
+    <Content Include="Images\bg1.jpg" />
     <Content Include="Images\KienLongBank.jpg" />
     <Content Include="Images\Laptop\HP-Victus16.png" />
     <Content Include="Images\Laptop\Lenovo-LOQ-15IRX.png" />
     <Content Include="Images\Laptop\Lenovo-ThinkBook-14G7.png" />
     <Content Include="Images\Laptop\ROG-G16.png" />
     <Content Include="Images\Laptop\ROG-Strix-G16.png" />
+    <Content Include="Images\Left.png" />
     <Content Include="Images\LinhKien\Ram-Crucial-832A.png" />
     <Content Include="Images\LinhKien\WD_SN500.png" />
     <Content Include="Images\MoMo_QR.png" />
+    <Content Include="Images\Right.png" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
