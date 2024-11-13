@@ -109,28 +109,28 @@
                         </div>
 
                         <!-- Chi tiết thanh toán MoMo -->
-                        <div id="momoDetails" class="payment-details bg-light p-3 mt-2" style="display:none;">
+                        <div id="momoDetails" class="payment-details bg-light p-3 mt-2" style="display:none; text-align: center;">
                             <h6 class="text-primary">Quét mã bên dưới bằng MoMo để thanh toán:</h6>
                             <div class="alert alert-danger d-inline-block mt-2">
-                                <strong>SĐT MoMo:</strong> 0969864739<br />
-                                <strong>Chủ tài khoản MoMo:</strong> Võ Nguyễn Thanh Hiếu<br />
-                                <strong>Nội dung chuyển tiền:</strong> @Model.ID
+                                <strong>SĐT MoMo:<br /></strong> 0969864739<br />
+                                <strong>Chủ tài khoản MoMo:<br /></strong> Võ Nguyễn Thanh Hiếu<br />
+                                <strong>Nội dung chuyển tiền:<br /></strong> @Model.ID
                             </div>
-                            <div class="text-center mt-3">
+                            <div class="d-flex justify-content-center mt-3">
                                 <img src="~/Images/MoMo_QR.png" alt="MoMo QR Code" class="img-fluid rounded shadow-sm" style="max-width: 200px;">
                             </div>
                         </div>
 
                         <!-- Chi tiết thanh toán Bank -->
-                        <div id="bankDetails" class="payment-details bg-light p-3 mt-2" style="display:none;">
+                        <div id="bankDetails" class="payment-details bg-light p-3 mt-2" style="display:none; text-align: center;">
                             <h6 class="text-primary">Quét mã bên dưới bằng ngân hàng để thanh toán:</h6>
                             <div class="alert alert-danger d-inline-block mt-2">
-                                <strong>Ngân hàng:</strong> TMCP Kiên Long (KienlongBank)<br />
-                                <strong>Số tài khoản:</strong> 0969864739<br />
-                                <strong>Chủ tài khoản:</strong> VO NGUYEN THANH HIEU<br />
-                                <strong>Nội dung chuyển khoản:</strong> @Model.ID
+                                <strong>Ngân hàng:<br /></strong> TMCP Kiên Long (KienlongBank)<br />
+                                <strong>Số tài khoản:<br /></strong> 0969864739<br />
+                                <strong>Chủ tài khoản:<br /></strong> VO NGUYEN THANH HIEU<br />
+                                <strong>Nội dung chuyển khoản:<br /></strong> @Model.ID
                             </div>
-                            <div class="text-center mt-3">
+                            <div class="d-flex justify-content-center mt-3">
                                 <img src="~/Images/KienLongBank.jpg" alt="Bank QR Code" class="img-fluid rounded shadow-sm" style="max-width: 200px;">
                             </div>
                         </div>

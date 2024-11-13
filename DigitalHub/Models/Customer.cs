@@ -11,7 +11,7 @@ namespace DigitalHub.Models
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +21,7 @@ namespace DigitalHub.Models
             this.ProductViewHistories = new HashSet<ProductViewHistory>();
             this.ShoppingCartHistories = new HashSet<ShoppingCartHistory>();
         }
-
+    
         public int IDCus { get; set; }
         public string NameCus { get; set; }
         public string PhoneCus { get; set; }
@@ -30,12 +30,13 @@ namespace DigitalHub.Models
         public string AddressCus { get; set; }
         public Nullable<System.DateTime> BirthDate { get; set; }
         public Nullable<bool> Gender { get; set; }
-        public string Role { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderPro> OrderProes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductViewHistory> ProductViewHistories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShoppingCartHistory> ShoppingCartHistories { get; set; }
+        public virtual Wishlist Wishlist { get; set; }
     }
 }
