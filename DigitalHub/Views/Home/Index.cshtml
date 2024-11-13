@@ -6,7 +6,42 @@
 }
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+<style>
+    .product-header {
+    font-size: 2.5rem; /* Kích thước chữ */
+    font-weight: bold; /* Chữ đậm */
+    color: #fff; /* Màu chữ */
+    text-transform: uppercase; /* Chuyển đổi thành chữ in hoa */
+    margin-top: 20px; /* Khoảng cách dưới */
+    margin-bottom: 20px; /* Khoảng cách dưới */
+    text-align: center; /* Căn giữa */
+    background: linear-gradient(90deg, #ff8a00, #e52e71); /* Hiệu ứng gradient */
+    -webkit-background-clip: text; /* Cắt nền theo chữ (chỉ hỗ trợ trên một số trình duyệt) */
+    -webkit-text-fill-color: transparent; /* Chữ trong suốt, hiển thị gradient */
+    position: relative; /* Để sử dụng pseudo-element */
+}
+.product-header::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    width: 80px; /* Chiều rộng đường kẻ dưới */
+    height: 4px; /* Độ dày của đường kẻ */
+    background: linear-gradient(90deg, #ff8a00, #e52e71); /* Cùng gradient với chữ */
+    border-radius: 2px; /* Bo góc cho đường kẻ */
+    animation: slideIn 1.5s infinite; /* Hiệu ứng chuyển động cho đường kẻ */
+}
 
+@@keyframes slideIn {
+    0%, 100% {
+        width: 80px;
+    }
+    50% {
+        width: 100px;
+    }
+}
+</style>
 <!-- Slider Section -->
 <div class="background mt-5">
     <div id="slider-section" class="container slider-custom" style="width: 95%;">
@@ -78,7 +113,6 @@
                         }
                     </div>
 
-
                     <button class="carousel-control-prev" type="button" data-bs-target="#productSlider" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
@@ -95,7 +129,7 @@
 </div>
 
 <!-- Main Content Section -->
-<h2 class="text-center mt-4">Sản phẩm bán chạy</h2>
+<h2 class="product-header">Sản phẩm Bán Chạy</h2>
 <div id="content-section" class="container mt-4">
     <div class="row">
         @foreach (var item in Model)
@@ -145,43 +179,10 @@
         }
     </div>
 </div>
-<div id="newsContainer" class="row row-cols-1 row-cols-md-3 g-4">
-    <!-- Các tin tức sẽ được hiển thị ở đây -->
-</div>
+
+@Html.Partial("_News")
 
 <script>
-    const apiKey = '7586c1109ca74833ba2cf85fd82ed6e1'; 
-    const url = `https://newsapi.org/v2/everything?q=technology&apiKey=${apiKey}`;
-
-    // Gửi yêu cầu đến API
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            const newsContainer = document.getElementById('newsContainer');
-            const articles = data.articles.slice(0, 6); // Chỉ lấy 6 tin đầu tiên
-            articles.forEach(article => {
-                const newsCard = document.createElement('div');
-                newsCard.classList.add('col', 'mb-4');
-                newsCard.innerHTML = `
-    <div class="card h-100">
-      <img src="${article.urlToImage || 'https://via.placeholder.com/180'}" 
-           class="card-img-top" 
-           alt="${article.title}"
-           onerror="this.onerror=null;this.src='https://via.placeholder.com/180';">
-      <div class="card-body">
-        <h5 class="card-title">${article.title}</h5>
-        <p class="card-text">${article.description || ''}</p>
-        <a href="${article.url}" target="_blank" class="btn btn-primary">Đọc thêm</a>
-      </div>
-    </div>
-  `;
-                newsContainer.appendChild(newsCard);
-            });
-        })
-        .catch(error => console.error('Lỗi khi lấy dữ liệu tin tức:', error));
-    
-
-
 
     function toggleWishlist(event, element) {
         element.classList.toggle('active');
@@ -204,6 +205,5 @@
             element.textContent = rating;
         });
     }
-
 
 </script>

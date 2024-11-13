@@ -231,6 +231,10 @@
     <Content Include="Icons\X_logo_2023_original.svg" />
     <Content Include="Icons\yYkB7z_qrcode.svg" />
     <Content Include="Images\anh-nen-caro-mau-xanh background.png" />
+    <Content Include="Images\Banner\Banner1.png" />
+    <Content Include="Images\Banner\Banner2.png" />
+    <Content Include="Images\Banner\Banner3.png" />
+    <Content Include="Images\Banner\Banner4.png" />
     <Content Include="Images\bg1.jpg" />
     <Content Include="Images\KienLongBank.jpg" />
     <Content Include="Images\Laptop\HP-Victus16.png" />
@@ -241,6 +245,7 @@
     <Content Include="Images\Left.png" />
     <Content Include="Images\LinhKien\Ram-Crucial-832A.png" />
     <Content Include="Images\LinhKien\WD_SN500.png" />
+    <Content Include="Images\logo-mess.png" />
     <Content Include="Images\MoMo_QR.png" />
     <Content Include="Images\Right.png" />
     <Content Include="Models\Model1.Context.tt">
@@ -1970,7 +1975,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_MasterLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
@@ -2179,6 +2183,8 @@
     <Content Include="Views\Users\Wishlist.cshtml" />
     <Content Include="Views\Shared\_ProductCard.cshtml" />
     <Content Include="Views\Shared\_Slider.cshtml" />
+    <Content Include="Views\Shared\_News.cshtml" />
+    <Content Include="Views\Shared\_BannerHead.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

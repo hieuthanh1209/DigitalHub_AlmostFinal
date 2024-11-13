@@ -110,28 +110,6 @@
 
 
 
-#newsContainer .card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-    min-height: 350px; /* Đảm bảo chiều cao tối thiểu để tránh co */
-}
-
-#newsContainer .card-body {
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Giữ khoảng cách nội dung đều */
-}
-
-#newsContainer .card-title,
-#newsContainer .card-text {
-    min-height: 40px; /* Đặt chiều cao tối thiểu để giữ ổn định */
-    overflow: hidden;
-}
-
-
 
 
 

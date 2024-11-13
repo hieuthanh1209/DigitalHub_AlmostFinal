@@ -1,4 +1,5 @@
 ﻿/*Phần chung - common*/
+
         .card:hover {
             box-shadow: 0 0 15px rgba(0, 123, 255, 0.3), 0 0 20px rgba(0, 123, 255, 0.4) !important;
             transform: translateX(2px) scale(1.03) !important;
@@ -151,7 +152,8 @@
         height: 100%;
         object-fit: contain; /* Giữ tỉ lệ ảnh trong khung hình */
     }
-    /* mystyle.css hoặc thêm trực tiếp vào thẻ <style> trong <head> */
+
+/*navbar-search*/
     .navbar-search {
         position: relative; /* Đảm bảo phần tử cha có position: relative để phần tử con căn chỉnh chính xác */
     }

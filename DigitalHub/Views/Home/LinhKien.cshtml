@@ -8,9 +8,49 @@
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
 
+<style>
+    .product-header {
+        font-size: 2.5rem; /* Kích thước chữ */
+        font-weight: bold; /* Chữ đậm */
+        color: #fff; /* Màu chữ */
+        text-transform: uppercase; /* Chuyển đổi thành chữ in hoa */
+        margin-top: 20px; /* Khoảng cách dưới */
+        margin-bottom: 20px; /* Khoảng cách dưới */
+        text-align: center; /* Căn giữa */
+        background: linear-gradient(90deg, #ff8a00, #e52e71); /* Hiệu ứng gradient */
+        -webkit-background-clip: text; /* Cắt nền theo chữ (chỉ hỗ trợ trên một số trình duyệt) */
+        -webkit-text-fill-color: transparent; /* Chữ trong suốt, hiển thị gradient */
+        position: relative; /* Để sử dụng pseudo-element */
+    }
+
+        .product-header::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            width: 80px; /* Chiều rộng đường kẻ dưới */
+            height: 4px; /* Độ dày của đường kẻ */
+            background: linear-gradient(90deg, #ff8a00, #e52e71); /* Cùng gradient với chữ */
+            border-radius: 2px; /* Bo góc cho đường kẻ */
+            animation: slideIn 1.5s infinite; /* Hiệu ứng chuyển động cho đường kẻ */
+        }
+
+    @@keyframes slideIn {
+        0%, 100% {
+            width: 80px;
+        }
+
+        50% {
+            width: 100px;
+        }
+    }
+</style>
+<!-- Banner Head -->
+@Html.Partial("_BannerHead")
 <div id="linh-kien-section">
     <div class="p-5">
-        <h2 class="mb-4">Linh kiện bán chạy</h2>
+        <h2 class="product-header">Linh Kiện Bán Chạy</h2>
 
         <div class="row">
             @foreach (var item in Model)
@@ -21,3 +61,4 @@
         </div>
     </div>
 </div>
+@Html.Partial("_News")
