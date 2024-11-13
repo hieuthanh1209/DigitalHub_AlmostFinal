@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DigitalHub.Models.Wishlist>
+
+@{
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+    ViewBag.Title = "Danh sách yêu thích";
+    string currentAction = ViewContext.RouteData.Values["action"].ToString();
+}
+
+<div class="container my-2">
+    <div class="row">
+        <!-- Cột bên trái: Menu -->
+        <div class="col-md-3">
+            @Html.Partial("_LeftSidebar")
+        </div>
+
+        <!-- Cột bên phải: Nội dung -->
+        <div class="col-md-9">
+            <h2 class="mb-2">Danh sách yêu thích</h2>
+            <hr class="mt-0 mb-3" />
+            @if (!Model.Any())
+            {
+                <p>Bạn chưa thêm sản phẩm nào vào danh sách yêu thích.</p>
+            }
+            else
+            {
+                <div class="row">
+                    @foreach (var wishlistItem in Model)
+                    {
+                        <div class="col-md-4 mb-2">
+                            <div class="card h-100">
+                                <img src="@Url.Content("~/Images/" + wishlistItem.Product.Category1.NameCate + "/" + wishlistItem.Product.ImagePro)" class="card-img-top" alt="@wishlistItem.Product.NamePro" />
+                                <div class="card-body p-2 d-flex flex-column">
+                                    <h5 class="card-title mb-2">@wishlistItem.Product.NamePro</h5>
+                                    <p class="card-text mb-2">@String.Format("{0:N0}₫", wishlistItem.Product.DiscountPrice ?? wishlistItem.Product.Price)</p>
+                                    <a href="@Url.Action("Details", "Home", new { id = wishlistItem.Product.ProductID })" class="btn btn-primary mt-auto">Xem chi tiết</a>
+                                    <a href="@Url.Action("RemoveFromWishlist", "Users", new { productId = wishlistItem.Product.ProductID })" class="btn btn-danger mt-2">Xóa khỏi danh sách yêu thích</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

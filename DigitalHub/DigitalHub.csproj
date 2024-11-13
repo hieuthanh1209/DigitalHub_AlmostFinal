@@ -2173,6 +2173,9 @@
     <Content Include="Views\InvoiceManager\OrderDetails.cshtml" />
     <Content Include="Views\Checkout\PaymentConfirmation.cshtml" />
     <Content Include="Views\Account\AdminLogin.cshtml" />
+    <Content Include="Views\Users\Wishlist.cshtml" />
+    <Content Include="Views\Shared\_ProductCard.cshtml" />
+    <Content Include="Views\Shared\_Slider.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
