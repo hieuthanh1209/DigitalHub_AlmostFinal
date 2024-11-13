@@ -41,4 +41,41 @@
     }
 
 
+.sticky-images-container {
+    position: relative !important;
+}
+
+.sticky-image {
+    margin-top: 44px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 20px; /* Khoảng cách từ đầu trang */
+    width: 150px; /* Kích thước hình ảnh */
+    height: auto;
+    z-index: 10;
+    transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s; /* Thêm hiệu ứng chuyển đổi */
+}
+
+.sticky-left {
+    position: fixed;
+    left: 0;
+    margin-left: 47px; /* Khoảng cách từ biên trái */
+}
+
+.sticky-right {
+    position: fixed;
+    right: 0;
+    margin-right: 47px; /* Khoảng cách từ biên phải */
+    cursor: pointer;
+}
+
+    .sticky-image:hover {
+        transform: scale(1.1); /* Tăng kích thước 10% khi hover */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Thêm đổ bóng khi hover */
+        opacity: 0.9; /* Giảm độ trong suốt một chút */
+    }
+
+
+
+
 

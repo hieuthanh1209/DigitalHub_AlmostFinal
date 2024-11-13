@@ -238,9 +238,11 @@
     <Content Include="Images\Laptop\Lenovo-ThinkBook-14G7.png" />
     <Content Include="Images\Laptop\ROG-G16.png" />
     <Content Include="Images\Laptop\ROG-Strix-G16.png" />
+    <Content Include="Images\Left.png" />
     <Content Include="Images\LinhKien\Ram-Crucial-832A.png" />
     <Content Include="Images\LinhKien\WD_SN500.png" />
     <Content Include="Images\MoMo_QR.png" />
+    <Content Include="Images\Right.png" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
