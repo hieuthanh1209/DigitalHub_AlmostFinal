@@ -23,12 +23,51 @@
     transform: translateY(-50%) !important;
 }
 
+.flash-sale-banner {
+    display: inline-block;
+    background: linear-gradient(90deg, #00c6ff, #0072ff); /* Gradient xanh lam */
+    color: #fff; /* Màu chữ trắng */
+    font-size: 24px; /* Kích thước chữ */
+    font-weight: bold; /* Chữ đậm */
+    padding: 10px 20px; /* Khoảng cách trong */
+    border-radius: 8px; /* Bo góc */
+    text-transform: uppercase; /* Chuyển đổi tất cả chữ sang in hoa */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Tạo đổ bóng */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 80%; /* Đảm bảo không chiếm toàn bộ chiều ngang */
+}
+
+}
+
+    .flash-sale-banner .icon {
+        margin-right: 8px; /* Khoảng cách giữa icon và text */
+        font-size: 28px; /* Kích thước icon */
+    }
+
 /*Slider-custom*/
 .slider-custom {
     padding-top: 3rem;
     padding-bottom: 0.5rem;
-    background-color: beige;
     border-radius: 1rem;
+}
+.background {
+    background-image: url('/Images/bg1.jpg') !important; /* Thay 'path/to/your/image.jpg' bằng đường dẫn thực tế */
+    background-size: cover; /* Điều chỉnh để hình ảnh phủ kín */
+    background-position: center; /* Đặt vị trí hình ảnh ở giữa */
+    background-repeat: no-repeat; /* Không lặp lại hình ảnh */
+    border-radius: 15px; /* Thay 15px bằng giá trị mong muốn */
+    overflow: hidden; /* Đảm bảo nội dung con cũng được bo tròn theo */
+    width: 90%;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
 }
 
 /* Container hình ảnh */
@@ -38,7 +77,6 @@
     background-color: #fff;
     overflow: hidden;
     border-bottom: 1px solid #ddd;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,5 +100,32 @@
     overflow: hidden;
     display: flex;
 }
+
+
+
+
+#newsContainer .card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    min-height: 350px; /* Đảm bảo chiều cao tối thiểu để tránh co */
+}
+
+#newsContainer .card-body {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Giữ khoảng cách nội dung đều */
+}
+
+#newsContainer .card-title,
+#newsContainer .card-text {
+    min-height: 40px; /* Đặt chiều cao tối thiểu để giữ ổn định */
+    overflow: hidden;
+}
+
+
+
 
 
