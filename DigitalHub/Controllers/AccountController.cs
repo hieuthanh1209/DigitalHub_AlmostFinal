@@ -39,6 +39,20 @@ namespace DigitalHub.Controllers
             return View(model);
         }
 
+        public ActionResult Logout()
+        {
+            // Xóa bỏ session của admin
+            Session["AdminUser"] = null;
+            Session["UserRole"] = null;
+
+            // Hủy cookie xác thực (FormsAuthentication)
+            FormsAuthentication.SignOut();
+
+            // Chuyển hướng về trang đăng nhập
+            return RedirectToAction("AdminLogin", "Account");
+        }
+
+
         private bool IsValidAdminUser(string username, string password)
         {
             // Directly compare the username and password without hashing
