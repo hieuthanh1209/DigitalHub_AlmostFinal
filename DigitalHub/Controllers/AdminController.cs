@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DigitalHub.Attributes;
 using DigitalHub.Models;
 
 namespace DigitalHub.Controllers
 {
+    [AdminAuthorize]
     public class AdminController : Controller
     {
         // GET: Admin

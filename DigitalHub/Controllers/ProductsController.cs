@@ -8,9 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using DigitalHub.Models;
 using System.IO;
+using DigitalHub.Attributes;
 
 namespace DigitalHub.Controllers
 {
+    [AdminAuthorize]
     public class ProductsController : Controller
     {
         private DigitalHub_DBEntities db = new DigitalHub_DBEntities();

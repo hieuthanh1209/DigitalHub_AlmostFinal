@@ -46,12 +46,15 @@ namespace DigitalHub.Controllers
                 // Nếu giỏ hàng rỗng, điều hướng về trang giỏ hàng
                 return RedirectToAction("Index", "Cart");
             }
+            
 
             // Tạo đối tượng Cart để truyền vào view
             var cart = new Cart
             {
                 Items = cartItems
             };
+
+            cart.UpdateTotal();
 
             return View(cart); // Trả về giỏ hàng với các sản phẩm
         }
@@ -88,6 +91,14 @@ namespace DigitalHub.Controllers
                 // Nếu giỏ hàng rỗng, điều hướng về trang giỏ hàng
                 return RedirectToAction("Index", "Cart");
             }
+
+            var cart = new Cart
+            {
+                Items = cartItems
+            };
+
+            // Tính lại tổng giá trị giỏ hàng
+            cart.UpdateTotal();
 
             // Tạo đơn hàng mới
             var order = new OrderPro
