@@ -1,0 +1,39 @@
+﻿@model IEnumerable<DigitalHub.Models.AdminUser>
+
+@{
+    ViewBag.Title = "Admin Management";
+    Layout = "~/Views/Shared/_AdminMasterLayout.cshtml";
+}
+
+<div style="margin: 10px auto; width: 70%;">
+    <h2 style="text-align: center">Quản lý Admin</h2>
+    <p>
+        @Html.ActionLink("TẠO MỚI", "Create", null, new { @class = "btn btn-primary" })
+    </p>
+
+    <table class="table table-hover table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>TÊN ADMIN</th>
+                <th>VAI TRÒ</th>
+                <th>LỆNH</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var admin in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => admin.ID)</td>
+                    <td>@Html.DisplayFor(modelItem => admin.NameUser)</td>
+                    <td>@Html.DisplayFor(modelItem => admin.RoleUser)</td>
+                    <td>
+                        @Html.ActionLink("Sửa", "Edit", new { id = admin.ID }, new { @class = "btn btn-success btn-sm" }) |
+                        @Html.ActionLink("Chi tiết", "Details", new { id = admin.ID }, new { @class = "btn btn-primary btn-sm" }) |
+                        @Html.ActionLink("Xóa", "Delete", new { id = admin.ID }, new { @class = "btn btn-danger btn-sm" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

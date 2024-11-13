@@ -62,5 +62,18 @@ namespace DigitalHub.Controllers
             // Nếu không có returnUrl hợp lệ, điều hướng về trang mặc định (trang sản phẩm)
             return RedirectToAction("Index", "Products");
         }
+        public ActionResult Logout()
+        {
+            // Xóa bỏ session của admin
+            Session["AdminUser"] = null;
+            Session["UserRole"] = null;
+
+            // Hủy cookie xác thực (FormsAuthentication)
+            FormsAuthentication.SignOut();
+
+            // Chuyển hướng về trang đăng nhập
+            return RedirectToAction("AdminLogin", "Account");
+        }
+
     }
 }

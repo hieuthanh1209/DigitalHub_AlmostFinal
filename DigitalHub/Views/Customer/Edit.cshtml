@@ -1,0 +1,100 @@
+﻿@model DigitalHub.Models.Customer
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminMasterLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">CHỈNH SỬA KHÁCH HÀNG</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(model => model.IDCus)
+
+            <!-- NameCus -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.NameCus, "Họ và Tên", new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.NameCus, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.NameCus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- PhoneCus -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.PhoneCus, "Số Điện Thoại", new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.PhoneCus, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PhoneCus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- EmailCus -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.EmailCus, "Email", new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.EmailCus, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EmailCus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- AddressCus -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.AddressCus, "Địa Chỉ", new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.AddressCus, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AddressCus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- PassCus -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.PassCus, "Mật khẩu", new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(model => model.PassCus, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PassCus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- BirthDate -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.BirthDate, "Ngày Sinh", new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.BirthDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Gender, "Giới Tính", new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Gender, new SelectList(new[] {
+                        new { Value = "true", Text = "Male" },
+                        new { Value = "false", Text = "Female" }
+                    }, "Value", "Text"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group row">
+                <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary">LƯU</button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Back Button -->
+    <div class="text-center mt-4">
+        <a href="@Url.Action("Index")" class="btn btn-secondary">TRỞ LẠI</a>
+    </div>
+</div>

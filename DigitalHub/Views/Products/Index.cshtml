@@ -11,27 +11,29 @@
         {
             @class = "btn btn-primary" })
     </p>
-    <table class="table table-hover">
+    <table class="table table-bordered table-striped table-hover">
         <tr>
             <th>
-                TÊN SẢN PHẨM
+                Tên sản phẩm
             </th>
             <th>
-                MÔ TẢ
+                Mô tả
             </th>
             <th>
-                GIÁ
+                Giá gốc
             </th>
             <th>
-                GIÁ GỐC
+                Giá giảm
             </th>
             <th>
-                HÌNH
+                Hình
             </th>
             <th>
-                CATEGORY
+                Loại hàng
             </th>
-            <th></th>   
+            <th>
+                Hành động
+            </th>   
         </tr>
         @foreach (var item in Model)
         {

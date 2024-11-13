@@ -1,0 +1,40 @@
+﻿@model IEnumerable<DigitalHub.Models.Customer>
+
+@{
+    ViewBag.Title = "Customer Management";
+    Layout = "~/Views/Shared/_AdminMasterLayout.cshtml";
+}
+
+<div style="margin: 10px auto; width: 70%;">
+    <h2 style="text-align: center">Quản lý khách hàng</h2>
+    <p>
+        @Html.ActionLink("TẠO MỚI", "Create", null, new { @class = "btn btn-primary" })
+    </p>
+    <table class="table table-hover table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>MÃ KHÁCH HÀNG</th>
+                <th>TÊN KHÁCH HÀNG</th>
+                <th>SỐ ĐIỆN THOẠI</th>
+                <th>EMAIL</th>
+                <th>LỆNH</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => customer.IDCus)</td>
+                    <td>@Html.DisplayFor(modelItem => customer.NameCus)</td>
+                    <td>@Html.DisplayFor(modelItem => customer.PhoneCus)</td>
+                    <td>@Html.DisplayFor(modelItem => customer.EmailCus)</td>
+                    <td>
+                        @Html.ActionLink("Sửa", "Edit", new { id = customer.IDCus }, new { @class = "btn btn-success btn-sm" }) |
+                        @Html.ActionLink("Chi tiết", "Details", new { id = customer.IDCus }, new { @class = "btn btn-primary btn-sm" }) |
+                        @Html.ActionLink("Xóa", "Delete", new { id = customer.IDCus }, new { @class = "btn btn-danger btn-sm" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

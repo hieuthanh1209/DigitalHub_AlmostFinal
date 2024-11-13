@@ -205,3 +205,73 @@
         display: inline-block;
     }
 
+/* Style the search bar */
+.search-bar {
+    /* Customize search bar appearance here */
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.search-result-product {
+    /* Style for product search results */
+    background-color: #f0f0f0;
+}
+
+.search-result-order {
+    /* Style for order search results */
+    background-color: #e0e0e0;
+}
+
+
+
+    /* Add a subtle shadow when focused */
+    .search-bar:focus {
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.6);
+        border-color: #007bff; /* Highlight border */
+        outline: none;
+    }
+
+/* Style the search results */
+#searchResults {
+    max-height: 300px; /* Limit the height */
+    overflow-y: auto; /* Enable scrolling */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    /* Style each search result item */
+    #searchResults .list-group-item {
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 8px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        margin-bottom: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        /* Hover effect for each result */
+        #searchResults .list-group-item:hover {
+            background-color: #f1f1f1;
+            transform: translateX(5px); /* Slight shift to the right */
+        }
+
+        /* When there's no search result */
+        #searchResults .list-group-item.no-result {
+            color: #dc3545;
+            text-align: center;
+            font-style: italic;
+        }
+
+/* Ẩn nút tăng giảm của input type="number" */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
