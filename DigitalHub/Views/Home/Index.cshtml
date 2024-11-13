@@ -109,11 +109,11 @@
                     </div>
 
                     <!-- Product Image -->
-                    <div class="image-container">
-                        <a href="@Url.Action("Details", "Home", new { id = item.ProductID })">
-                            <img class="card-img-top" src="~/Images/@item.Category1.NameCate/@item.ImagePro" alt="Product Image">
-                        </a>
-                    </div>
+                    <a href="@Url.Action("Details", "Home", new { id = item.ProductID })">
+                        <div class="image-container">
+                            <img class="card-img-top" alt="product_image" src="~/Images/@item.Category1.NameCate/@item.ImagePro" onerror="this.style.display='none'" />
+                        </div>
+                    </a>
 
                     <!-- Card Body -->
                     <div class="card-body d-flex flex-column">
@@ -141,7 +141,6 @@
 
 
 <script>
-  
 
 
     function toggleWishlist(event, element) {
@@ -154,7 +153,6 @@
         }, 500); // Thời gian khớp với thời gian hiệu ứng sparkle
     }
 
-
     window.onload = function () {
         generateRandomRatings();
     };
@@ -165,16 +163,6 @@
             const rating = (Math.random() * 4 + 1).toFixed(1);
             element.textContent = rating;
         });
-    }
-
-    // Debounce function to improve performance
-    function debounce(func, wait) {
-        let timeout;
-        return function (...args) {
-            const context = this;
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(context, args), wait);
-        };
     }
 
 

@@ -15,14 +15,12 @@
     <link rel="stylesheet" href="~/Content/Home_TaiNghe.css" />
     <link rel="stylesheet" href="~/Content/MasterLayout.css" />
 
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-
-
 </head>
+
 <body>
     <!-- Thanh điều hướng -->
     <nav id="navbar" class="navbar navbar-expand-md navbar-light bg-light">
@@ -47,24 +45,33 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
-
+            
             <!-- Nội dung có thể thu gọn -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Các mục navbar căn trái -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Home/Laptop">Laptop</a>
+                        <a class="nav-link" href="~/Home/Laptop">
+                            <i class="fas fa-laptop" style="margin-right: 5px;"></i> Laptop
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Home/LinhKien">Linh kiện</a>
+                        <a class="nav-link" href="~/Home/LinhKien">
+                            <i class="fas fa-tools" style="margin-right: 5px;"></i> Linh kiện
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Home/BanPhimChuot">Bàn phím, chuột</a>
+                        <a class="nav-link" href="~/Home/BanPhimChuot">
+                            <i class="fas fa-keyboard" style="margin-right: 5px;"></i> Bàn phím, chuột
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Home/TaiNghe">Tai nghe</a>
+                        <a class="nav-link" href="~/Home/TaiNghe">
+                            <i class="fas fa-headphones" style="margin-right: 5px;"></i> Tai nghe
+                        </a>
                     </li>
                 </ul>
+
 
                 <!-- Các mục tìm kiếm và giỏ hàng căn phải -->
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -117,7 +124,7 @@
                     {
                         <li class="nav-item">
                             <a href="@Url.Action("Login", "Users")" class="nav-link">
-                                <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                                <i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i> Đăng nhập
                             </a>
                         </li>
                     }

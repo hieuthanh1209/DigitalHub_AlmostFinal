@@ -22,3 +22,21 @@
     .navbar-nav .nav-item .nav-link:hover::before {
         width: 100%;
     }
+
+.nav-link {
+    color: #333; /* Màu mặc định */
+    transition: color 0.3s ease-in-out;
+}
+
+    .nav-link:hover {
+        color: #ff9800; /* Màu khi hover */
+    }
+
+    .nav-link i {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .nav-link:hover i {
+        transform: scale(1.2); /* Tăng kích thước icon khi hover */
+    }
+
