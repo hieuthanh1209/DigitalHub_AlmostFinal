@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using DigitalHub.Attributes;
 using DigitalHub.Models; // Adjust namespace based on your project
 
 namespace DigitalHub.Controllers
 {
+    [AdminAuthorize]
     public class InvoiceManagerController : Controller
     {
         private DigitalHub_DBEntities db = new DigitalHub_DBEntities(); // Your DbContext class
