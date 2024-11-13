@@ -20,6 +20,7 @@ namespace DigitalHub.Models
             this.OrderProes = new HashSet<OrderPro>();
             this.ProductViewHistories = new HashSet<ProductViewHistory>();
             this.ShoppingCartHistories = new HashSet<ShoppingCartHistory>();
+            this.Wishlists = new HashSet<Wishlist>();
         }
     
         public int IDCus { get; set; }
@@ -37,6 +38,7 @@ namespace DigitalHub.Models
         public virtual ICollection<ProductViewHistory> ProductViewHistories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShoppingCartHistory> ShoppingCartHistories { get; set; }
-        public virtual Wishlist Wishlist { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Wishlist> Wishlists { get; set; }
     }
 }

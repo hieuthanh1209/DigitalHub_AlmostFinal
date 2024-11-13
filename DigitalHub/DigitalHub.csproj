@@ -247,6 +247,7 @@
     <Content Include="Images\LinhKien\Ram-Crucial-832A.png" />
     <Content Include="Images\LinhKien\WD_SN500.png" />
     <Content Include="Images\logo-mess.png" />
+    <Content Include="Images\logo-zalo.png" />
     <Content Include="Images\MoMo_QR.png" />
     <Content Include="Images\Right.png" />
     <Content Include="Models\Model1.Context.tt">
@@ -2191,6 +2192,10 @@
     <Content Include="Views\Customer\Edit.cshtml" />
     <Content Include="Views\Customer\Details.cshtml" />
     <Content Include="Views\Customer\Delete.cshtml" />
+    <Content Include="Views\Users\Wishlist.cshtml" />
+    <Content Include="Views\Shared\_BannerHead.cshtml" />
+    <Content Include="Views\Users\_News.cshtml" />
+    <Content Include="Views\Shared\_News.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

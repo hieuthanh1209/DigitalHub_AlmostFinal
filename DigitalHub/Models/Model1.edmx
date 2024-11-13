@@ -30,7 +30,7 @@
           <Property Name="NameCus" Type="nvarchar" MaxLength="255" />
           <Property Name="PhoneCus" Type="nvarchar" MaxLength="15" />
           <Property Name="EmailCus" Type="nvarchar" MaxLength="255" />
-          <Property Name="PassCus" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="PassCus" Type="nvarchar" MaxLength="50" />
           <Property Name="AddressCus" Type="nvarchar" MaxLength="255" />
           <Property Name="BirthDate" Type="date" />
           <Property Name="Gender" Type="bit" />
@@ -89,11 +89,11 @@
         </EntityType>
         <EntityType Name="Wishlist">
           <Key>
-            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
-          <Property Name="DateAdded" Type="datetime" />
         </EntityType>
         <Association Name="FK__OrderDeta__IDOrd__440B1D61">
           <End Role="OrderPro" Type="Self.OrderPro" Multiplicity="0..1" />
@@ -193,7 +193,7 @@
         </Association>
         <Association Name="FK_Wishlist_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="0..1" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
               <PropertyRef Name="IDCus" />
@@ -296,14 +296,14 @@
           <Property Name="NameCus" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="PhoneCus" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="EmailCus" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="PassCus" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="PassCus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AddressCus" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="BirthDate" Type="DateTime" Precision="0" />
           <Property Name="Gender" Type="Boolean" />
           <NavigationProperty Name="OrderProes" Relationship="Self.FK__OrderPro__IDCus__403A8C7D" FromRole="Customer" ToRole="OrderPro" />
           <NavigationProperty Name="ProductViewHistories" Relationship="Self.FK_ProductViewHistory_Customer" FromRole="Customer" ToRole="ProductViewHistory" />
           <NavigationProperty Name="ShoppingCartHistories" Relationship="Self.FK_ShoppingCartHistory_Customer" FromRole="Customer" ToRole="ShoppingCartHistory" />
-          <NavigationProperty Name="Wishlist" Relationship="DigitalHub_DBModel.FK_Wishlist_Customer" FromRole="Customer" ToRole="Wishlist" />
+          <NavigationProperty Name="Wishlists" Relationship="DigitalHub_DBModel.FK_Wishlist_Customer" FromRole="Customer" ToRole="Wishlist" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -516,20 +516,20 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="Wishlist" EntitySet="Wishlists" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Wishlist">
           <Key>
-            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="DateAdded" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Customer" Relationship="DigitalHub_DBModel.FK_Wishlist_Customer" FromRole="Wishlist" ToRole="Customer" />
           <NavigationProperty Name="Product" Relationship="DigitalHub_DBModel.FK_Wishlist_Product" FromRole="Wishlist" ToRole="Product" />
         </EntityType>
         <Association Name="FK_Wishlist_Customer">
           <End Type="DigitalHub_DBModel.Customer" Role="Customer" Multiplicity="1" />
-          <End Type="DigitalHub_DBModel.Wishlist" Role="Wishlist" Multiplicity="0..1" />
+          <End Type="DigitalHub_DBModel.Wishlist" Role="Wishlist" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
               <PropertyRef Name="IDCus" />
@@ -551,7 +551,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -650,9 +650,9 @@
           <EntitySetMapping Name="Wishlists">
             <EntityTypeMapping TypeName="DigitalHub_DBModel.Wishlist">
               <MappingFragment StoreEntitySet="Wishlist">
-                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

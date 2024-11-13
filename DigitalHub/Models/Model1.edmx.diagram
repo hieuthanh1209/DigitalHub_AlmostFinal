@@ -21,10 +21,10 @@
         <AssociationConnector Association="DigitalHub_DBModel.FK__OrderDeta__IDPro__4316F928" ManuallyRouted="false" />
         <AssociationConnector Association="DigitalHub_DBModel.FK_ProductViewHistory_Product" ManuallyRouted="false" />
         <AssociationConnector Association="DigitalHub_DBModel.FK_ShoppingCartHistory_Product" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DigitalHub_DBModel.Wishlist" Width="1.5" PointX="9.5" PointY="7.75" />
+        <EntityTypeShape EntityType="DigitalHub_DBModel.Wishlist" Width="1.5" PointX="6.25" PointY="7.25" />
         <AssociationConnector Association="DigitalHub_DBModel.FK_Wishlist_Customer" />
         <AssociationConnector Association="DigitalHub_DBModel.FK_Wishlist_Product" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
