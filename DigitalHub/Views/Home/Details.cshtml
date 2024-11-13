@@ -12,17 +12,20 @@
         </div>
         <div class="col-md-6">
             <h1 class="fw-bolder">@Html.DisplayFor(model => model.NamePro)</h1>
-            <h5 class="rating">
-                3.5
-                <i class="fas fa-star"></i>
-            </h5>
+
             <div class="fs-5 mb-5">
-                <p class="text-decoration-line-through mb-0">@String.Format("{0:N0}", Model.Price).Replace(",", ".")</p>
                 <h2 class="text-danger">@String.Format("{0:N0}", Model.DiscountPrice).Replace(",", ".")</h2>
+                <p class="text-decoration-line-through mb-0">@String.Format("{0:N0}", Model.Price).Replace(",", ".")</p>
+                <div style="color: orange;">
+                    ★★★★★
+                </div>
+
             </div>
+            
+
             <div>
                 <ul class="list-group mb-5">
-                    <li class="list-group-item list-group-item-danger">QUÀ TẶNG KHUYẾN MÃI</li>
+                    <li class="list-group-item list-group-item-info">QUÀ TẶNG KHUYẾN MÃI</li>
                     <li class="list-group-item">1 x Đế Tản Nhiệt Cooler Master X-Slim II trị giá 375.000₫</li>
                     <li class="list-group-item">1 x Chuột Logitech G102 LightSync Black trị giá 400.000₫</li>
                 </ul>
@@ -55,7 +58,7 @@
         <div class="col-md-8">
             <h2>Thông tin sản phẩm</h2>
             <table class="table table-bordered custom-rounded">
-                <thead class="table-danger">
+                <thead class="table-info">
                     <tr>
                         <td>@Html.Raw(Model.DecriptionPro?.Replace("\n", "<br>"))</td>
                     </tr>
@@ -65,14 +68,13 @@
         <div class="col-md-4">
             <h2>Đánh giá</h2>
             <table class="table table-bordered custom-rounded mb-2">
-                <thead class="table-danger">
+                <thead class="table-info">
                     <tr>
                         <th>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>Thanh Hiếu</span>
-                                <p class="rating mb-0">
-                                    5
-                                    <i class="fas fa-star"></i>
+                                <p class="rating" style="color: orange;">
+                                        ★★★★★
                                 </p>
                             </div>
                         </th>
@@ -88,7 +90,7 @@
             </table>
 
             <table class="table table-bordered custom-rounded mb-2">
-                <thead class="table-danger">
+                <thead class="table-info">
                     <tr>
                         <th>
                             <div class="d-flex justify-content-between align-items-center">
@@ -111,7 +113,7 @@
             </table>
 
             <table class="table table-bordered custom-rounded mb-2">
-                <thead class="table-danger">
+                <thead class="table-info">
                     <tr>
                         <th>
                             <div class="d-flex justify-content-between align-items-center">
@@ -134,7 +136,7 @@
             </table>
 
             <table class="table table-bordered custom-rounded mb-2">
-                <thead class="table-danger">
+                <thead class="table-info">
                     <tr>
                         <th>
                             <div class="d-flex justify-content-between align-items-center">
