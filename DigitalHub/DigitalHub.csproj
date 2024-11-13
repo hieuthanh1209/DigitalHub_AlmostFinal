@@ -129,6 +129,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceManagerController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -2180,17 +2181,21 @@
     <Content Include="Views\InvoiceManager\OrderDetails.cshtml" />
     <Content Include="Views\Checkout\PaymentConfirmation.cshtml" />
     <Content Include="Views\Account\AdminLogin.cshtml" />
-    <Content Include="Views\Users\Wishlist.cshtml" />
-    <Content Include="Views\Shared\_ProductCard.cshtml" />
-    <Content Include="Views\Shared\_Slider.cshtml" />
-    <Content Include="Views\Shared\_News.cshtml" />
-    <Content Include="Views\Shared\_BannerHead.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Create.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Admin\Details.cshtml" />
+    <Content Include="Views\Admin\Delete.cshtml" />
+    <Content Include="Views\Customer\Create.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Customer\Details.cshtml" />
+    <Content Include="Views\Customer\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\BanPhimChuot\" />
     <Folder Include="Images\TaiNghe\" />
-    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

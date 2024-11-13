@@ -1,47 +1,57 @@
 ﻿@model DigitalHub.Models.Category
+
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_AdminMasterLayout.cshtml";
 }
-<div style="margin: 10px auto; width: 70%;">
-    <h2 style="text-align: center">CHỈNH SỬA CATEGORY</h2>
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">CHỈNH SỬA CATEGORY</h2>
+
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
+
         <div class="form-horizontal">
             <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text￾danger" })
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
             @Html.HiddenFor(model => model.ID)
-            <div class="form-group">
-                MÃ LOẠI HÀNG
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.IDCate, new
-                    {
-                   htmlAttributes = new { @class = "form-control", @readonly = "readonly" }
-                   })
-                    @Html.ValidationMessageFor(model => model.IDCate, "",
-                   new { @class = "text-danger" })
+
+            <div class="row">
+                <!-- Left Side: Category Information -->
+                <div class="col-md-8">
+                    <!-- Category ID -->
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.IDCate, "MÃ MẶT HÀNG", new { @class = "col-md-4 col-form-label" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.IDCate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.IDCate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- Category Name -->
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.NameCate, "TÊN MẶT HÀNG", new { @class = "col-md-4 col-form-label" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.NameCate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NameCate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                TÊN LOẠI HÀNG
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NameCate, new
-                    {
-                   htmlAttributes = new { @class = "form-control" }
-                    })
-                    @Html.ValidationMessageFor(model => model.NameCate, "",
-                   new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10 mb-3 mt-3">
-                    <input type="submit" value="LƯU" class="btn btn-primary" />
+
+                <!-- Right Side: Submit Button -->
+                <div class="col-md-4">
+                    <!-- We will move the submit button to the bottom -->
                 </div>
             </div>
         </div>
+
+        <!-- Centered Buttons: LƯU & TRỞ LẠI -->
+        <div class="form-group text-center mt-4">
+            <button type="submit" class="btn btn-primary px-4 py-2">LƯU</button>
+            <span class="mx-3">|</span>
+            @Html.ActionLink("TRỞ LẠI", "Index", null, new { @class = "btn btn-secondary px-4 py-2" })
+        </div>
     }
-    <div>
-        @Html.ActionLink("TRỞ LẠI", "Index")
-    </div>
 </div>
