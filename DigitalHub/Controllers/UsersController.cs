@@ -88,14 +88,7 @@ namespace DigitalHub.Controllers
                 if (khachhang != null)
                 {
                     Session["TaiKhoan"] = khachhang;
-                    if (khachhang.Role == "admin")
-                    {
-                        return RedirectToAction("Index", "AdminDashboard"); // Redirect admins to the admin dashboard
-                    }
-                    else
-                    {
                         return RedirectToAction("Index", "Home"); // Redirect regular users to the homepage
-                    }
                 }
                 else
                 {

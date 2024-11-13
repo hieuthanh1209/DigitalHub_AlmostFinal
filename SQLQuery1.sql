@@ -68,3 +68,11 @@ CREATE TABLE [dbo].[ProductViewHistory] (
     CONSTRAINT [FK_ProductViewHistory_Customer] FOREIGN KEY ([CustomerID]) REFERENCES [dbo].[Customer]([IDCus]),
     CONSTRAINT [FK_ProductViewHistory_Product] FOREIGN KEY ([ProductID]) REFERENCES [dbo].[Products]([ProductID])
 );
+CREATE TABLE [dbo].[Wishlist] (
+    [CustomerID] INT NOT NULL,                             -- Mã khách hàng
+    [ProductID] INT NOT NULL,                              -- Mã sản phẩm
+    [DateAdded] DATETIME DEFAULT GETDATE(),                -- Ngày thêm sản phẩm vào mục yêu thích
+    PRIMARY KEY ([CustomerID]),                            -- Khóa chính là CustomerID, chỉ cho phép một mục yêu thích mỗi tài khoản
+    CONSTRAINT [FK_Wishlist_Customer] FOREIGN KEY ([CustomerID]) REFERENCES [dbo].[Customer]([IDCus]),  -- Liên kết với bảng Customer
+    CONSTRAINT [FK_Wishlist_Product] FOREIGN KEY ([ProductID]) REFERENCES [dbo].[Products]([ProductID])  -- Liên kết với bảng Products
+);

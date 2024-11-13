@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,68 +9,58 @@ namespace DigitalHub.Controllers
 {
     public class AccountController : Controller
     {
-        private DigitalHub_DBEntities db = new DigitalHub_DBEntities();
+        private DigitalHub_DBEntities db = new DigitalHub_DBEntities(); // Khởi tạo đối tượng kết nối tới cơ sở dữ liệu
 
+        // Trang đăng nhập Admin
         public ActionResult AdminLogin(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
+            ViewBag.ReturnUrl = returnUrl; // Gửi giá trị returnUrl sang view để điều hướng sau khi đăng nhập thành công
+            return View(); // Trả về View đăng nhập
         }
 
-        [HttpPost]
+        [HttpPost] // Phương thức POST để xử lý đăng nhập
         public ActionResult AdminLogin(LoginViewModel model, string returnUrl)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) // Kiểm tra nếu mô hình (form) hợp lệ
             {
+                // Kiểm tra tài khoản admin có hợp lệ không
                 if (IsValidAdminUser(model.Username, model.Password))
                 {
+                    // Đặt cookie xác thực và lưu thông tin vào session
                     FormsAuthentication.SetAuthCookie(model.Username, model.RememberMe);
                     var adminUser = db.AdminUsers.FirstOrDefault(u => u.NameUser == model.Username);
-                    Session["AdminUser"] = adminUser;
-                    Session["UserRole"] = adminUser.RoleUser;  // Set the role from the database (Admin or User)
+                    Session["AdminUser"] = adminUser; // Lưu thông tin người dùng vào session
+                    Session["UserRole"] = adminUser.RoleUser;  // Lưu vai trò người dùng (Admin hoặc User)
+
+                    // Điều hướng về trang mà người dùng yêu cầu (returnUrl) hoặc trang mặc định nếu không có returnUrl
                     return RedirectToLocal(returnUrl);
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    // Nếu tên đăng nhập hoặc mật khẩu không hợp lệ, thêm lỗi vào ModelState
+                    ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
                 }
             }
-            return View(model);
+            return View(model); // Trả về View nếu có lỗi hoặc không hợp lệ
         }
 
-        public ActionResult Logout()
-        {
-            // Xóa bỏ session của admin
-            Session["AdminUser"] = null;
-            Session["UserRole"] = null;
-
-            // Hủy cookie xác thực (FormsAuthentication)
-            FormsAuthentication.SignOut();
-
-            // Chuyển hướng về trang đăng nhập
-            return RedirectToAction("AdminLogin", "Account");
-        }
-
-
+        // Kiểm tra tài khoản admin hợp lệ
         private bool IsValidAdminUser(string username, string password)
         {
-            // Directly compare the username and password without hashing
+            // Kiểm tra xem tên đăng nhập và mật khẩu có khớp trong cơ sở dữ liệu không
             return db.AdminUsers.Any(user => user.NameUser == username && user.PasswordUser.Trim() == password.Trim());
         }
 
+        // Điều hướng về trang được yêu cầu hoặc trang mặc định
         private ActionResult RedirectToLocal(string returnUrl)
         {
-            // Check if the returnUrl is valid and points to the Products Index page
+            // Kiểm tra xem returnUrl có hợp lệ và có chứa đường dẫn "/Products/Index"
             if (Url.IsLocalUrl(returnUrl) && returnUrl.Contains("/Products/Index"))
             {
-                return Redirect(returnUrl);
+                return Redirect(returnUrl); // Điều hướng về returnUrl
             }
-            else
-            {
-                // If no valid returnUrl is passed, default to Products Index page
-                return RedirectToAction("Index", "Products");
-            }
+            // Nếu không có returnUrl hợp lệ, điều hướng về trang mặc định (trang sản phẩm)
+            return RedirectToAction("Index", "Products");
         }
     }
-
 }

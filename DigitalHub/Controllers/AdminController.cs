@@ -11,17 +11,23 @@ namespace DigitalHub.Controllers
     [AdminAuthorize]
     public class AdminController : Controller
     {
+        private DigitalHub_DBEntities db = new DigitalHub_DBEntities(); // DbContext class
+
         // GET: Admin
         public ActionResult Index()
         {
             return View();
         }
 
-        private DigitalHub_DBEntities db = new DigitalHub_DBEntities(); // Your DbContext class
-
         [HttpGet]
         public JsonResult SearchAll(string keyword)
         {
+            // Kiểm tra keyword null hoặc rỗng
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return Json(new { customers = new List<object>(), products = new List<object>(), orders = new List<object>() }, JsonRequestBehavior.AllowGet);
+            }
+
             // Tìm kiếm thông tin khách hàng
             var customers = db.Customers
                 .Where(c => c.NameCus.Contains(keyword))
@@ -37,7 +43,7 @@ namespace DigitalHub.Controllers
             // Tìm kiếm đơn hàng
             var orders = db.OrderProes
                 .Where(o => o.ID.ToString().Contains(keyword))
-                .Select(o => new { o.ID, o.Customer.NameCus })
+                .Select(o => new { o.ID, CustomerName = o.Customer.NameCus })
                 .ToList();
 
             return Json(new { customers, products, orders }, JsonRequestBehavior.AllowGet);
