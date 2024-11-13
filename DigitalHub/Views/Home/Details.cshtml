@@ -14,22 +14,27 @@
             <h1 class="fw-bolder">@Html.DisplayFor(model => model.NamePro)</h1>
 
             <div class="fs-5 mb-5">
-                <h2 class="text-danger">@String.Format("{0:N0}", Model.DiscountPrice).Replace(",", ".")</h2>
-                <p class="text-decoration-line-through mb-0">@String.Format("{0:N0}", Model.Price).Replace(",", ".")</p>
+                <div class="d-flex align-items-center">
+                    <h2 class="text-danger mb-0">@String.Format("{0:N0}", Model.DiscountPrice).Replace(",", ".")</h2>
+                    <p class="text-decoration-line-through mb-0 ms-3">@String.Format("{0:N0}", Model.Price).Replace(",", ".")</p>
+                </div>  
                 <div style="color: orange;">
                     ★★★★★
                 </div>
 
             </div>
-            
 
-            <div>
-                <ul class="list-group mb-5">
-                    <li class="list-group-item list-group-item-info">QUÀ TẶNG KHUYẾN MÃI</li>
-                    <li class="list-group-item">1 x Đế Tản Nhiệt Cooler Master X-Slim II trị giá 375.000₫</li>
-                    <li class="list-group-item">1 x Chuột Logitech G102 LightSync Black trị giá 400.000₫</li>
-                </ul>
-            </div>
+
+            @if (Model.DiscountPrice > 1000000)
+            {
+                <div>
+                    <ul class="list-group mb-5">
+                        <li class="list-group-item list-group-item-info">QUÀ TẶNG KHUYẾN MÃI</li>
+                        <li class="list-group-item">1 x Đế Tản Nhiệt Cooler Master X-Slim II trị giá 375.000₫</li>
+                        <li class="list-group-item">1 x Chuột Logitech G102 LightSync Black trị giá 400.000₫</li>
+                    </ul>
+                </div>
+            }
 
             <div class="d-flex align-items-center" style="gap: 5px;">
                 <button type="button" class="btn btn-light btn-outline-secondary" onclick="decreaseValue()" style="margin-right: 0;">-</button>
@@ -38,7 +43,7 @@
             </div>
             <div class="row mt-3 d-flex align-items-center" style="margin: 0;">
                 <div class="col-auto p-0 mb-2">
-                    <a href="OrderPage.html" class="btn btn-danger" style="width: 150px; margin-right: 10px;">Mua ngay</a>
+                    <a href="@Url.Action("Index", "Checkout")" class="btn btn-danger" style="width: 150px; margin-right: 10px;">Mua ngay</a>
                 </div>
                 <div class="col-auto p-0 mb-2">
                     <a href="javascript:void(0);"
@@ -73,7 +78,7 @@
                         <th>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>Thanh Hiếu</span>
-                                <p class="rating" style="color: orange;">
+                                <p class="rating mt-0" style="color: orange;">
                                         ★★★★★
                                 </p>
                             </div>
@@ -95,9 +100,8 @@
                         <th>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>Tiến Dũng</span>
-                                <p class="rating mb-0">
-                                    5
-                                    <i class="fas fa-star"></i>
+                                <p class="rating mt-0" style="color: orange;">
+                                    ★★★★★
                                 </p>
                             </div>
                         </th>
@@ -118,9 +122,8 @@
                         <th>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>Văn Ba</span>
-                                <p class="rating mb-0">
-                                    1
-                                    <i class="fas fa-star"></i>
+                                <p class="rating mt-0" style="color: orange;">
+                                    ★★★★★
                                 </p>
                             </div>
                         </th>
@@ -129,7 +132,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            Thằng ở trên xà lơ quá, cho 1 sao
+                            Thằng ở trên xà lơ quá, cho 5 sao
                         </td>
                     </tr>
                 </tbody>
@@ -141,9 +144,8 @@
                         <th>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>Hải Nam</span>
-                                <p class="rating mb-0">
-                                    5
-                                    <i class="fas fa-star"></i>
+                                <p class="rating mt-0" style="color: orange;">
+                                    ★★★★★
                                 </p>
                             </div>
                         </th>
@@ -152,7 +154,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            Bình luận này chỉ giúp bù lại 4 sao bị trừ từ Văn Ba
+                            Bình luận này chỉ mang tính chất buff sao
                         </td>
                     </tr>
                 </tbody>

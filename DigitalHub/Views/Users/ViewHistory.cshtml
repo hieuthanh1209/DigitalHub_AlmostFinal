@@ -15,7 +15,7 @@
 
         <!-- Cột bên phải: Nội dung -->
         <div class="col-md-9">
-            <h2 class="mb-2">Lịch sử xem sản phẩm</h2>
+            <h2 class="mb-2 text-center">Lịch sử xem sản phẩm</h2>
             <hr class="mt-0 mb-3" />
             @if (!Model.Any())
             {
@@ -26,18 +26,10 @@
                 <div class="row">
                     @foreach (var product in Model)
                     {
-                        <div class="col-md-4 mb-2">
-                            <div class="card h-100">
-                                <img src="@Url.Content("~/Images/" + product.Category1.NameCate + "/" + product.ImagePro)" class="card-img-top" alt="@product.NamePro" />
-                                <div class="card-body p-2 d-flex flex-column">
-                                    <h5 class="card-title mb-2">@product.NamePro</h5>
-                                    <p class="card-text mb-2">@String.Format("{0:N0}₫", product.DiscountPrice ?? product.Price)</p>
-                                    <a href="@Url.Action("Details", "Home", new { id = product.ProductID })" class="btn btn-primary mt-auto">Xem chi tiết</a>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Gọi Partial View _ProductCard.cshtml cho mỗi sản phẩm -->
+                        @Html.Partial("_ProductCard", product)
                     }
-                </div>
+                </div> <!-- End row -->
             }
         </div>
     </div>

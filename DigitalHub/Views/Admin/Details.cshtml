@@ -1,0 +1,42 @@
+﻿@model DigitalHub.Models.AdminUser
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminMasterLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-start">
+        <h2 class="text-center mb-4">CHI TIẾT ADMIN</h2>
+        <div class="col-md-8">
+
+            <div>
+                <h4 class="text-start mb-3">THÔNG TIN CHI TIẾT ADMIN</h4>
+                <hr />
+
+                <!-- Thông tin chi tiết admin -->
+                <dl class="row">
+                    <dt class="col-md-4 text-start">TÊN ADMIN</dt>
+                    <dd class="col-md-8 text-start">
+                        @Html.DisplayFor(model => model.NameUser)
+                    </dd>
+
+                    <dt class="col-md-4 text-start">VAI TRÒ</dt>
+                    <dd class="col-md-8 text-start">
+                        @Html.DisplayFor(model => model.RoleUser)
+                    </dd>
+
+                    <dt class="col-md-4 text-start">MẬT KHẨU</dt>
+                    <dd class="col-md-8 text-start">
+                        @Html.DisplayFor(model => model.PasswordUser)
+                    </dd>
+                </dl>
+            </div>
+
+            <p class="text-start">
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.ID }, new { @class = "btn btn-success" }) |
+                @Html.ActionLink("Trở lại", "Index", null, new { @class = "btn btn-secondary" })
+            </p>
+        </div>
+    </div>
+</div>
+

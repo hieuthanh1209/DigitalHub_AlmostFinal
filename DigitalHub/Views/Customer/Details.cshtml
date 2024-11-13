@@ -1,0 +1,63 @@
+﻿@model DigitalHub.Models.Customer
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminMasterLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-start">
+        <h2 class="text-center mb-4">CHI TIẾT CUSTOMER</h2>
+        <div class="col-md-8">
+
+
+            <div>
+                <h4 class="text-start mb-3">THÔNG TIN CHI TIẾT</h4>
+                <hr />
+
+                <!-- Thông tin chi tiết khách hàng -->
+                <dl class="row">
+                    <dt class="col-md-4 text-start">TÊN KHÁCH HÀNG</dt>
+                    <dd class="col-md-8 text-start">
+                        @Html.DisplayFor(model => model.NameCus)
+                    </dd>
+
+                    <dt class="col-md-4 text-start">SỐ ĐIỆN THOẠI</dt>
+                    <dd class="col-md-8 text-start">
+                        @Html.DisplayFor(model => model.PhoneCus)
+                    </dd>
+
+                    <dt class="col-md-4 text-start">EMAIL</dt>
+                    <dd class="col-md-8 text-start">
+                        @Html.DisplayFor(model => model.EmailCus)
+                    </dd>
+
+                    <dt class="col-md-4 text-start">ĐỊA CHỈ</dt>
+                    <dd class="col-md-8 text-start">
+                        @Html.DisplayFor(model => model.AddressCus)
+                    </dd>
+
+                    <dt class="col-md-4 text-start">MẬT KHẨU</dt>
+                    <dd class="col-md-8 text-start">
+                        @Html.DisplayFor(model => model.PassCus)
+                    </dd>
+
+                    <dt class="col-md-4 text-start">NGÀY SINH</dt>
+                    <dd class="col-md-8 text-start">
+                        @(Model.BirthDate.HasValue ? Model.BirthDate.Value.ToString("dd - MM - yyyy") : "N/A")
+                    </dd>
+
+                    <dt class="col-md-4 text-start">GIỚI TÍNH</dt>
+                    <dd class="col-md-8 text-start">
+                        @Html.DisplayFor(model => model.Gender)
+                    </dd>
+                </dl>
+            </div>
+
+            <p class="text-start">
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.IDCus }, new { @class = "btn btn-success" }) |
+                @Html.ActionLink("Trở lại", "Index", null, new { @class = "btn btn-secondary" })
+            </p>
+        </div>
+    </div>
+</div>

@@ -14,5 +14,25 @@ namespace DigitalHub.Models
         public int Quantity { get; set; }
         public decimal TotalPrice => Price * Quantity;
         public string Category { get; set; }
+
+        public string Folder()
+        {
+            string categoryTrimmed = Category?.Trim();
+
+            switch (categoryTrimmed)
+            {
+                case "C004":
+                    return "LinhKien";
+                case "C005":
+                    return "BanPhimChuot";
+                case "C006":
+                    return "TaiNghe";
+                case "C007":
+                    return "Laptop";
+                default:
+                    return "default"; // Fallback folder
+            }
+        }
+
     }
 }

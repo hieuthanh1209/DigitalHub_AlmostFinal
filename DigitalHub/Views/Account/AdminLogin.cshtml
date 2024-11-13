@@ -1,0 +1,56 @@
+﻿@model DigitalHub.Models.LoginViewModel
+@{
+    ViewBag.Title = "Admin Đăng nhập";
+    Layout = "~/Views/Shared/_AdminMasterLayout.cshtml"; // Layout của trang Admin
+}
+
+@if (TempData["ThongBao"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["ThongBao"]
+    </div>
+}
+
+<!-- Form đăng nhập -->
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4>Admin Đăng nhập</h4>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("AdminLogin", "Account", FormMethod.Post))
+                    {
+                        if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                    {
+                                        <li>@error.ErrorMessage</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+
+                        <div class="mb-3">
+                            <label for="adminUsername" class="form-label">Tên đăng nhập</label>
+                            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @id = "adminUsername", required = "required" })
+                        </div>
+                        <div class="mb-3">
+                            <label for="adminPassword" class="form-label">Mật khẩu</label>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "adminPassword", required = "required" })
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+                    }
+
+                    <div class="mt-3 text-center">
+                        <span>Quay lại </span>
+                        <a href="@Url.Action("Login", "Users")" class="text-primary">Trang người dùng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

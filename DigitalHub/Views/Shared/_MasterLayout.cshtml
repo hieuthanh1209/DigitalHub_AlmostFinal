@@ -8,36 +8,40 @@
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     <link rel="stylesheet" href="~/Content/MediaQuery.css">
     <link rel="stylesheet" href="~/Content/Slider.css">
-    <link rel="stylesheet" href="~/Content/mystyle.css">
+    <link rel="stylesheet" href="~/Content/mystyle.css" />
     <link rel="stylesheet" href="~/Content/Home_Laptop.css" />
     <link rel="stylesheet" href="~/Content/Home_LinhKien.css" />
     <link rel="stylesheet" href="~/Content/Home_BanPhim.css" />
     <link rel="stylesheet" href="~/Content/Home_TaiNghe.css" />
     <link rel="stylesheet" href="~/Content/MasterLayout.css" />
 
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-
-
 </head>
+
 <body>
-    <!-- Thanh điều hướng -->
-    <nav id="navbar" class="navbar navbar-expand-md navbar-light bg-light">
-        <div class="container d-flex justify-content-between align-items-center">
-            <div id="nav-expand" class="d-flex justify-content-around">
-                <!-- Logo thương hiệu -->
-                <a class="navbar-brand d-flex align-items-center" href="~/Home/Index">
-                    <img src="~/Icons/D_logo_NoName.svg" alt="Logo" style="width: 30px;">
-                </a>
+<!-- Thanh điều hướng -->
+<nav id="navbar" class="navbar navbar-expand-md navbar-light bg-light">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div id="nav-expand" class="d-flex justify-content-around">
+            <!-- Logo thương hiệu -->
+            <a class="navbar-brand d-flex align-items-center" href="~/Home/Index">
+                <img src="~/Icons/D_logo_NoName.svg" alt="Logo" style="width: 30px;">
+            </a>
 
                 <!-- Thanh tìm kiếm và giỏ hàng cho màn hình nhỏ -->
                 <div class="d-flex d-md-none me-auto ms-auto">
-                    <form class="d-flex w-100">
-                        <input class="form-control" type="search" placeholder="Tìm kiếm sản phẩm" id="searchInput" aria-label="Search">
+                    <form class="d-flex w-100" method="get" action="/Search/Index">
+                        <input class="form-control" type="search" name="query" placeholder="Tìm kiếm sản phẩm" id="searchInput" aria-label="Search">
+                        <button class="btn btn-outline-secondary ms-2" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </form>
+                    <ul id="suggestions" class="list-group" style="display:none; position:absolute; width:100%; z-index:1000;">
+                        <!-- Real-time search results will appear here -->
+                    </ul>
                     <a class="nav-link d-flex align-items-center ms-2" href="@Url.Action("Index", "Cart")">
                         <img src="~/Icons/cart-large-minimalistic-svgrepo-com.svg" alt="Giỏ hàng" style="width: 24px; height: 24px;">
                     </a>
@@ -53,25 +57,40 @@
                 <!-- Các mục navbar căn trái -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Home/Laptop">Laptop</a>
+                        <a class="nav-link" href="~/Home/Laptop">
+                            <i class="fas fa-laptop" style="margin-right: 5px;"></i> Laptop
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Home/LinhKien">Linh kiện</a>
+                        <a class="nav-link" href="~/Home/LinhKien">
+                            <i class="fas fa-tools" style="margin-right: 5px;"></i> Linh kiện
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Home/BanPhimChuot">Bàn phím, chuột</a>
+                        <a class="nav-link" href="~/Home/BanPhimChuot">
+                            <i class="fas fa-keyboard" style="margin-right: 5px;"></i> Bàn phím, chuột
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Home/TaiNghe">Tai nghe</a>
+                        <a class="nav-link" href="~/Home/TaiNghe">
+                            <i class="fas fa-headphones" style="margin-right: 5px;"></i> Tai nghe
+                        </a>
                     </li>
                 </ul>
+
 
                 <!-- Các mục tìm kiếm và giỏ hàng căn phải -->
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item d-none d-md-block">
-                        <form class="d-flex w-100" method="get" action="/Search/Index">
-                            <input class="form-control" type="search" name="query" placeholder="Tìm kiếm sản phẩm" id="searchInput" aria-label="Search">
-                        </form>
+                        <div class="search-container" style="position: relative;">
+                            <form class="d-flex w-100" method="get" action="/Search/Index">
+                                <input class="form-control" type="search" name="query" placeholder="Tìm kiếm sản phẩm" id="searchInput" aria-label="Search">
+                            </form>
+                            <!-- Real-time search suggestions -->
+                            <ul id="suggestions" class="list-group" style="display:none; position:absolute; width:100%; z-index:1000;">
+                                <!-- Real-time search results will appear here -->
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item d-none d-md-block">
                         <a class="nav-link d-flex align-items-center" href="@Url.Action("Index", "Cart")">
@@ -83,74 +102,76 @@
                         var user = Session["TaiKhoan"] as DigitalHub.Models.Customer;
                     }
 
-                    @if (user != null)
-                    {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user"></i>
-                                Xin chào, @user.NameCus
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <!-- Tài khoản của tôi -->
-                                <li>
-                                    <a class="dropdown-item" href="@Url.Action("CustomerInfo", "Users")">
-                                        <i class="fas fa-user-circle"></i> Tài khoản của tôi
-                                    </a>
-                                </li>
-                                <!-- Đơn hàng của tôi -->
-                                <li>
-                                    <a class="dropdown-item" href="@Url.Action("OrderHistory", "Users")">
-                                        <i class="fas fa-shopping-bag"></i> Đơn hàng của tôi
-                                    </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <!-- Đăng xuất -->
-                                <li>
-                                    <a class="dropdown-item text-danger" href="@Url.Action("Logout", "Users")">
-                                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a href="@Url.Action("Login", "Users")" class="nav-link">
-                                <i class="fas fa-sign-in-alt"></i> Đăng nhập
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>
+                @if (user != null)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                            Xin chào, @user.NameCus
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <!-- Tài khoản của tôi -->
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("CustomerInfo", "Users")">
+                                    <i class="fas fa-user-circle"></i> Tài khoản của tôi
+                                </a>
+                            </li>
+                            <!-- Đơn hàng của tôi -->
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("OrderHistory", "Users")">
+                                    <i class="fas fa-shopping-bag"></i> Đơn hàng của tôi
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <!-- Đăng xuất -->
+                            <li>
+                                <a class="dropdown-item text-danger" href="@Url.Action("Logout", "Users")">
+                                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a href="@Url.Action("Login", "Users")" class="nav-link">
+                            <i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i> Đăng nhập
+                        </a>
+                    </li>
+                }
+            </ul>
         </div>
-    </nav>
-
-
-
-    <div class="container">
-        @if (TempData["ThongBao"] != null)
-        {
-            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                @TempData["ThongBao"]
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        }
-        @RenderBody()
     </div>
+</nav>
 
-    <!--Footer-->
-    <!-- Chân trang -->
-    <div class="container">
-        <footer class="row row-cols-1 row-cols-md-5 py-5 border-top justify-content-center">
-            <div class="col mb-3 text-center text-md-start">
-                <a href="~/Home/Index" class="d-flex align-items-center justify-content-center justify-content-md-start mb-3 link-dark text-decoration-none">
-                    <img src="~/Icons/D_logo_NoName.svg" alt="Logo" width="60">
-                </a>
-                <p class="text-muted">© Digital Hub 2024</p>
-            </div>
 
-            <div class="col"></div> <!-- Cột trống để tạo khoảng cách -->
+
+<div class="container">
+    @if (TempData["ThongBao"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            @TempData["ThongBao"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @RenderBody()
+</div>
+
+
+
+<!--Footer-->
+<!-- Chân trang -->
+<div class="container mt-5">
+    <footer class="row row-cols-1 row-cols-md-5 py-5 border-top justify-content-center">
+        <div class="col mb-3 text-center text-md-start">
+            <a href="~/Home/Index" class="d-flex align-items-center justify-content-center justify-content-md-start mb-3 link-dark text-decoration-none">
+                <img src="~/Icons/D_logo_NoName.svg" alt="Logo" width="60">
+            </a>
+            <p class="text-muted">© Digital Hub 2024</p>
+        </div>
+
+        <div class="col"></div> <!-- Cột trống để tạo khoảng cách -->
 
             <div class="col mb-3">
                 <h5 class="text-center text-md-start">Về Digital Hub</h5>
@@ -159,29 +180,34 @@
                     <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Tuyển dụng</a></li>
                     <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Góp ý, khiếu nại</a></li>
                     <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Tìm chi nhánh gần nhất</a></li>
+                    <li class="nav-item mb-2">
+                        <a href="@Url.Action("Index", "Admin")" class="nav-link p-0 text-muted">
+                            Quản lý Website
+                        </a>
+                    </li>
                 </ul>
             </div>
 
-            <div class="col mb-3">
-                <h5 class="text-center text-md-start">Chính sách</h5>
-                <ul class="nav flex-column text-center text-md-start">
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Chính sách bảo hành</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Chính sách thanh toán</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Chính sách giao hàng</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Chính sách bảo mật</a></li>
-                </ul>
-            </div>
+        <div class="col mb-3">
+            <h5 class="text-center text-md-start">Chính sách</h5>
+            <ul class="nav flex-column text-center text-md-start">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Chính sách bảo hành</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Chính sách thanh toán</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Chính sách giao hàng</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Chính sách bảo mật</a></li>
+            </ul>
+        </div>
 
-            <div class="col mb-3">
-                <h5 class="text-center text-md-start">Tổng đài hỗ trợ</h5>
-                <ul class="nav flex-column text-center text-md-start">
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Mua hàng: (028) 3863 2052</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Bảo hành: (028) 3862 9232</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Khiếu nại: (028) 3865 0991</a></li>
-                    <li class="nav-item mb-2"><a href="mailto:contact@huflit.edu.vn" class="nav-link p-0 text-muted">Email: contact@huflit.edu.vn</a></li>
-                </ul>
-            </div>
-        </footer>
+        <div class="col mb-3">
+            <h5 class="text-center text-md-start">Tổng đài hỗ trợ</h5>
+            <ul class="nav flex-column text-center text-md-start">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Mua hàng: (028) 3863 2052</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Bảo hành: (028) 3862 9232</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Khiếu nại: (028) 3865 0991</a></li>
+                <li class="nav-item mb-2"><a href="mailto:contact@huflit.edu.vn" class="nav-link p-0 text-muted">Email: contact@huflit.edu.vn</a></li>
+            </ul>
+        </div>
+    </footer>
 
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center py-3 border-top">
             <p class="mb-2 mb-md-0 text-center">© 2024 Digital Hub. All rights reserved.</p>
@@ -204,7 +230,10 @@
             </ul>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
 
 </body>
 </html>
+

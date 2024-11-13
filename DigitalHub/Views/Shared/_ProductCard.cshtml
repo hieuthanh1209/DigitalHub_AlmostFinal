@@ -1,0 +1,74 @@
+﻿@model DigitalHub.Models.Product
+
+<div class="col-6 col-md-4 col-lg-3 mb-4" id="product-card-@Model.ProductID">
+    <div class="card h-100 shadow-sm position-relative">
+        <!-- Hiển thị phần trăm giảm giá nếu có -->
+        @if (Model.DiscountPrice.HasValue && Model.Price.HasValue && Model.DiscountPrice < Model.Price)
+        {
+            var discount = Math.Round(((Model.Price.Value - Model.DiscountPrice.Value) / Model.Price.Value * 100), 0);
+            <div class="discount-badge">-@discount%</div>
+        }
+
+        <!-- Nhãn "Trả góp 0%" -->
+        <div class="custom-label">Trả góp 0%</div>
+
+        <!-- Biểu tượng yêu thích -->
+        <div class="wishlist-icon" onclick="toggleWishlist(event, this)">
+            <i class="fas fa-heart"></i>
+        </div>
+
+        <!-- Hình ảnh sản phẩm -->
+        <a href="@Url.Action("Details", "Home", new { id = Model.ProductID })">
+            <div class="image-container">
+                <img class="card-img-top" src="~/Images/@Model.Category1.NameCate/@Model.ImagePro" alt="Product Image" loading="lazy" onerror="this.style.display='none'">
+            </div>
+        </a>
+
+        <!-- Thông tin sản phẩm -->
+        <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
+            <a href="@Url.Action("Details", "Home", new { id = Model.ProductID })" class="text-decoration-none">
+                <p class="card-title text-dark text-decoration-none">
+                    @(Model.NamePro.Length > 30 ? Model.NamePro.Substring(0, 30) + "..." : Model.NamePro)
+                </p>
+            </a>
+
+            <div class="mb-2">
+                <p class="discount_price text-danger fw-bold mb-0">@String.Format("{0:N0}", Model.DiscountPrice).Replace(",", ".")đ</p>
+                <p class="old-price text-muted text-decoration-line-through mb-0">@String.Format("{0:N0}", Model.Price).Replace(",", ".")đ</p>
+            </div>
+
+            <!-- Đánh giá sao ngẫu nhiên -->
+            <p class="rating text-warning mb-0 d-flex align-items-center">
+                <span id="ratingValue-@Model.NamePro" style="color: #ee4d2d"></span> <i class="fas fa-star"></i>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript cho phần wishlist và đánh giá sao -->
+<script>
+    // Hàm toggle cho wishlist
+    function toggleWishlist(event, element) {
+        element.classList.toggle('active');
+
+        // Thêm hiệu ứng click
+        element.classList.add('clicked');
+        setTimeout(() => {
+            element.classList.remove('clicked');
+        }, 500); // Thời gian khớp với thời gian hiệu ứng sparkle
+    }
+
+    // Hàm tạo đánh giá ngẫu nhiên khi trang được tải
+    window.onload = function () {
+        generateRandomRatings();
+    };
+
+    // Hàm tạo đánh giá ngẫu nhiên cho các sản phẩm
+    function generateRandomRatings() {
+        const ratingElements = document.querySelectorAll('[id^="ratingValue-"]');
+        ratingElements.forEach(element => {
+            const rating = (Math.random() * 4 + 1).toFixed(1);
+            element.textContent = rating;
+        });
+    }
+</script>

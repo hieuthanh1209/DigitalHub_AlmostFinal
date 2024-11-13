@@ -1,12 +1,27 @@
-﻿
-/*Phần chung - common*/
-.card:hover {
-    box-shadow: 0 0 15px rgba(0, 123, 255, 0.3), 0 0 20px rgba(0, 123, 255, 0.4) !important;
-    transform: translateX(2px) scale(1.03) !important;
-    transition: transform 0.1s ease-in-out, box-shadow 0.2s ease;
-}
+﻿/*Phần chung - common*/
 
+        .card:hover {
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.3), 0 0 20px rgba(0, 123, 255, 0.4) !important;
+            transform: translateX(2px) scale(1.03) !important;
+            transition: transform 0.1s ease-in-out, box-shadow 0.2s ease;
+        }
+        .image-container {
+            width: 100%;
+            height: 150px !important; /* Chiều cao cố định cho hình ảnh */
+            background-color: #fff;
+            overflow: hidden;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
+        .image-container .card-img-top {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Giữ nguyên tỉ lệ ảnh mà không bị méo */
+            display: block;
+        }
         .card-title {
             font-weight: 500;
             margin: 0;
@@ -18,8 +33,13 @@
         }
 
         .price,
-        .old-price{
+        .old-price,
+        .rating{
             margin: 0;
+        }
+
+        .rating {
+            margin-top: 10px;
         }
 
         /*Phần trăm giảm giá*/
@@ -36,55 +56,55 @@
             z-index: 1;
         }
 
-        .custom-label {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background-color: #ffffff;
-            color: #007bff;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            z-index: 1;
-            border: 1px solid #007bff;
-            font-weight: 500;
-            font-size: 11px;
-        }
+.custom-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #ffffff;
+    color: #007bff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    z-index: 1;
+    border: 1px solid #007bff;
+    font-weight: 500;
+    font-size: 11px;
+}
 
-        /* Phần rating */
-        .rating {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+/* Phần rating */
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
 
-        .stars {
-            color: #ee4d2d;
-            font-size: 13px;
-        }
+.stars {
+    color: #ee4d2d;
+    font-size: 13px;
+}
 
-        .count {
-            color: #999;
-            font-size: 12px;
-        }
+.count {
+    color: #999;
+    font-size: 12px;
+}
 
-        /*Wishlist*/
-        .wishlist-icon {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            color: #ccc; /* Màu trái tim mặc định */
-            font-size: 1.5rem; /* Điều chỉnh kích thước biểu tượng */
-            cursor: pointer;
-            transition: color 0.3s ease, transform 0.3s ease; /* Hiệu ứng chuyển màu và phóng to */
-        }
+/*Wishlist*/
+.wishlist-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #ccc; /* Màu trái tim mặc định */
+    font-size: 1.5rem; /* Điều chỉnh kích thước biểu tượng */
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease; /* Hiệu ứng chuyển màu và phóng to */
+}
 
-        .wishlist-icon.active {
-            color: #ff4d4f; /* Màu đỏ khi được chọn */
-        }
+    .wishlist-icon.active {
+        color: #ff4d4f; /* Màu đỏ khi được chọn */
+    }
 
-        .wishlist-icon.clicked {
-            animation: sparkle 0.5s ease-in-out; /* Hiệu ứng sparkle */
-        }
+    .wishlist-icon.clicked {
+        animation: sparkle 0.5s ease-in-out; /* Hiệu ứng sparkle */
+    }
 
 @keyframes sparkle {
     0% {
@@ -108,9 +128,32 @@
     }
 
     60% {
-        transform: scale(
+        transform: scale(1.4) rotate(-10deg);
+        color: #ff4d4f;
     }
-    /* mystyle.css hoặc thêm trực tiếp vào thẻ <style> trong <head> */
+
+    100% {
+        transform: scale(1);
+        color: #ff4d4f;
+    }
+}
+
+/* Ảnh sản phẩm */
+#content-section .image-container {
+    width: 100%;
+    height: 200px; /* Chiều cao cố định của khung hình */
+    background-color: #fff; /* Màu nền mặc định khi không có ảnh */
+
+    overflow: hidden;
+    border-bottom: 1px solid #ddd; /* Viền cho khung hình, tùy chọn */
+}
+
+    #content-section .image-container img {
+        height: 100%;
+        object-fit: contain; /* Giữ tỉ lệ ảnh trong khung hình */
+    }
+
+/*navbar-search*/
     .navbar-search {
         position: relative; /* Đảm bảo phần tử cha có position: relative để phần tử con căn chỉnh chính xác */
     }
@@ -164,3 +207,73 @@
         display: inline-block;
     }
 
+/* Style the search bar */
+.search-bar {
+    /* Customize search bar appearance here */
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.search-result-product {
+    /* Style for product search results */
+    background-color: #f0f0f0;
+}
+
+.search-result-order {
+    /* Style for order search results */
+    background-color: #e0e0e0;
+}
+
+
+
+    /* Add a subtle shadow when focused */
+    .search-bar:focus {
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.6);
+        border-color: #007bff; /* Highlight border */
+        outline: none;
+    }
+
+/* Style the search results */
+#searchResults {
+    max-height: 300px; /* Limit the height */
+    overflow-y: auto; /* Enable scrolling */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    /* Style each search result item */
+    #searchResults .list-group-item {
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 8px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        margin-bottom: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        /* Hover effect for each result */
+        #searchResults .list-group-item:hover {
+            background-color: #f1f1f1;
+            transform: translateX(5px); /* Slight shift to the right */
+        }
+
+        /* When there's no search result */
+        #searchResults .list-group-item.no-result {
+            color: #dc3545;
+            text-align: center;
+            font-style: italic;
+        }
+
+/* Ẩn nút tăng giảm của input type="number" */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}

@@ -5,9 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using DigitalHub.Models;
 using System.Net;
+using DigitalHub.Attributes;
 
 namespace DigitalHub.Controllers
 {
+    [AdminAuthorize]
     public class CategoriesController : Controller
     {
         DigitalHub_DBEntities db = new DigitalHub_DBEntities();

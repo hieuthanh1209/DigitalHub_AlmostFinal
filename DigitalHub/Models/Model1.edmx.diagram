@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9d4856f938574d26897efbed5a6a3cfe" Name="Diagram1">
-        <EntityTypeShape EntityType="DigitalHub_DBModel.AdminUser" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="DigitalHub_DBModel.Category" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DigitalHub_DBModel.Customer" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DigitalHub_DBModel.OrderDetail" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+      <Diagram DiagramId="9d4856f938574d26897efbed5a6a3cfe" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="DigitalHub_DBModel.AdminUser" Width="1.5" PointX="13.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DigitalHub_DBModel.Category" Width="1.5" PointX="5.125" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DigitalHub_DBModel.Customer" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DigitalHub_DBModel.OrderDetail" Width="1.5" PointX="10.125" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DigitalHub_DBModel.OrderPro" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DigitalHub_DBModel.Product" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DigitalHub_DBModel.ProductViewHistory" Width="1.5" PointX="8.25" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DigitalHub_DBModel.ShoppingCartHistory" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DigitalHub_DBModel.ProductViewHistory" Width="1.5" PointX="13" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DigitalHub_DBModel.ShoppingCartHistory" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="DigitalHub_DBModel.FK_Pro_Category" ManuallyRouted="false" />
         <AssociationConnector Association="DigitalHub_DBModel.FK__OrderPro__IDCus__403A8C7D" ManuallyRouted="false" />
         <AssociationConnector Association="DigitalHub_DBModel.FK_ProductViewHistory_Customer" ManuallyRouted="false" />
@@ -21,7 +21,10 @@
         <AssociationConnector Association="DigitalHub_DBModel.FK__OrderDeta__IDPro__4316F928" ManuallyRouted="false" />
         <AssociationConnector Association="DigitalHub_DBModel.FK_ProductViewHistory_Product" ManuallyRouted="false" />
         <AssociationConnector Association="DigitalHub_DBModel.FK_ShoppingCartHistory_Product" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="DigitalHub_DBModel.Wishlist" Width="1.5" PointX="6.25" PointY="7.25" />
+        <AssociationConnector Association="DigitalHub_DBModel.FK_Wishlist_Customer" />
+        <AssociationConnector Association="DigitalHub_DBModel.FK_Wishlist_Product" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<DigitalHub.Models.Product>
+
+<div id="slider-section" class="container slider-custom" style="width: 90%;">
+    <div class="row">
+        <div class="col-12 position-relative">
+            <div id="productSlider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+                <div class="carousel-inner p-3">
+                    @{
+                        // Giả sử bạn có một danh sách chứa index hoặc ID của các sản phẩm bạn muốn hiển thị
+                        var selectedIndexes = new List<int> { 0, 1, 2, 4, 6, 10, 11, 28, 29, 36 }; // Các index của sản phẩm bạn muốn lấy
+                        var products = selectedIndexes.Select(index => Model.ElementAt(index)).ToList(); // Lấy 10 sản phẩm theo các index trên
+                    }
+
+                    @for (int i = 0; i < products.Count; i += 5)
+                    {
+                        <div class="carousel-item @(i == 0 ? "active" : "")">
+                            <div class="row justify-content-center">
+                                @foreach (var product in products.Skip(i).Take(5))
+                                {
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card h-100 position-relative">
+                                            @if (product.DiscountPrice.HasValue && product.Price.HasValue && product.DiscountPrice < product.Price)
+                                            {
+                                                var discount = Math.Round(((product.Price.Value - product.DiscountPrice.Value) / product.Price.Value * 100), 0);
+                                                <div class="discount-badge">-@discount%</div>
+                                            }
+
+                                            <div class="custom-label">Trả góp 0%</div>
+
+                                            <!-- Wishlist Icon -->
+                                            <div class="wishlist-icon" onclick="toggleWishlist(event, this)">
+                                                <i class="fas fa-heart"></i>
+                                            </div>
+
+                                            <!-- Product Image -->
+                                            <div class="image-container">
+                                                <a href="@Url.Action("Details", "Home", new { id = product.ProductID })">
+                                                    <img class="card-img-top" src="~/Images/@product.Category1.NameCate/@product.ImagePro" alt="Product Image" loading="lazy">
+                                                </a>
+                                            </div>
+
+                                            <!-- Card Body -->
+                                            <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
+                                                <a href="@Url.Action("Details", "Home", new { id = product.ProductID })" class="text-decoration-none">
+                                                    <p class="card-title text-dark text-decoration-none">
+                                                        @(product.NamePro.Length > 30 ? product.NamePro.Substring(0, 30) + "..." : product.NamePro)
+                                                    </p>
+                                                </a>
+
+                                                <div class="mb-2">
+                                                    <p class="discount_price text-danger fw-bold mb-0">@String.Format("{0:N0}", product.DiscountPrice).Replace(",", ".")đ</p>
+                                                    <p class="old-price text-muted text-decoration-line-through mb-0">@String.Format("{0:N0}", product.Price).Replace(",", ".")đ</p>
+                                                </div>
+
+                                                <p class="rating text-warning mb-0 d-flex align-items-center">
+                                                    <span id="ratingValue-@product.NamePro" style="color: #ee4d2d"></span> <i class="fas fa-star"></i>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div> <!-- End col- -->
+                                }
+                            </div> <!-- End row -->
+                        </div> <!-- End carousel-item -->
+                    }
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#productSlider" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#productSlider" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
